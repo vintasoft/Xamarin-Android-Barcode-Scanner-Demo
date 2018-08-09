@@ -20,3 +20,7 @@ VintaSoft Barcode .NET SDK on-line User Guide and API Reference is available her
 
 <h2>Support</h2>
 Please visit our <a href="https://www.vintasoft.com/support/">online support center</a> if you have any question or problem.
+
+
+<h2>Google Play</h2>
+VintaSoft Barcode Scanner application, which is based on this demo, can be downloaded from Google Play: https://play.google.com/store/apps/details?id=com.vintasoft.barcodescanner
