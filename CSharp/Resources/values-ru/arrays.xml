@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+
+  <!--Base Settings-->
+  <string-array name="entries_list_recognition_mode">
+    <item>Адаптивный</item>
+    <item>Сбалансированный</item>
+    <item>Наилучшее качество</item>
+  </string-array>
+
+  <string-array name="entries_list_fps_limit">
+    <item>Неограниченно</item>
+    <item>20 fps</item>
+    <item>15 fps</item>
+    <item>10 fps</item>
+    <item>5 fps</item>
+    <item>1 fps</item>
+  </string-array>
+
+  <string-array name="entries_list_camera_frame_sizes">
+    <item>Авто</item>
+  </string-array>
+
+  <string-array name="entries_list_languages">
+    <item>Авто</item>
+    <item>Английский</item>
+    <item>Русский</item>
+  </string-array>
+
+  <string-array name="entries_list_encodings">
+    <item>По умолчанию</item>
+  </string-array>
+  <!--Base Settings-->
+
+</resources>

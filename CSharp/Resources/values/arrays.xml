@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  
+  <!--Base Settings-->
+  <string-array name="entries_list_recognition_mode">
+    <item>Adaptive</item>
+    <item>Balanced</item>
+    <item>Best Quality</item>
+  </string-array>
+  <string-array name="entryvalues_list_recognition_mode">
+    <item>adaptive</item>
+    <item>balanced</item>
+    <item>bestQuality</item>
+  </string-array>
+
+  <string-array name="entries_list_fps_limit">
+    <item>Unlimited</item>
+    <item>20 fps</item>
+    <item>15 fps</item>
+    <item>10 fps</item>
+    <item>5 fps</item>
+    <item>1 fps</item>
+  </string-array>
+  <string-array name="entryvalues_list_fps_limit">
+    <item>-1</item>
+    <item>20</item>
+    <item>15</item>
+    <item>10</item>
+    <item>5</item>
+    <item>1</item>
+  </string-array>
+
+  <string-array name="entries_list_camera_frame_sizes">
+    <item>Auto</item>
+  </string-array>
+  <string-array name="entryvalues_list_camera_frame_sizes">
+    <item>-1</item>
+  </string-array>
+
+  <string-array name="entries_list_languages">
+    <item>Auto</item>
+    <item>English</item>
+    <item>Russian</item>
+  </string-array>
+  <string-array name="entryvalues_list_languages">
+    <item>auto</item>
+    <item>en</item>
+    <item>ru</item>
+  </string-array>
+
+  <string-array name="entries_list_encodings">
+    <item>Default</item>
+  </string-array>
+  <string-array name="entryvalues_list_encodings">
+    <item>-1</item>
+  </string-array>
+  <!--Base Settings-->
+  
+</resources>

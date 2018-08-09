@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <ListPreference
+      android:key="list_languages"
+      android:title="@string/title_list_languages"
+      android:dialogTitle="@string/dialog_title_list_languages"
+      android:entries="@array/entries_list_languages"
+      android:entryValues="@array/entryvalues_list_languages"
+      android:defaultValue="auto"/>
+  
+  <!-- Base Settings -->
+  <PreferenceCategory
+    android:title="@string/camera_preferences">
+
+    <CheckBoxPreference
+      android:key="checkbox_autofocus"
+      android:title="@string/title_checkbox_autofocus"
+      android:defaultValue="true"/>
+
+    <CheckBoxPreference
+      android:key="checkbox_continuous_autofocus"
+      android:title="@string/title_checkbox_continuous_autofocus"
+      android:defaultValue="true"
+      android:dependency="checkbox_autofocus"/>
+
+    <CheckBoxPreference
+      android:key="checkbox_autofocus_on_touch"
+      android:title="@string/title_checkbox_autofocus_on_touch"
+      android:defaultValue="true"
+      android:dependency="checkbox_autofocus"/>
+
+    <ListPreference
+      android:key="list_camera_preview_sizes"
+      android:title="@string/title_list_camera_frame_sizes"
+      android:summary="@string/summary_list_camera_frame_sizes"
+      android:entries="@array/entries_list_camera_frame_sizes"
+      android:entryValues="@array/entryvalues_list_camera_frame_sizes"
+      android:dialogTitle="@string/dialog_title_list_camera_frame_sizes"/>
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:title="@string/barcode_found_preferences">
+    
+    <CheckBoxPreference
+      android:key="checkbox_stop_scan"
+      android:title="@string/title_checkbox_stop_scan"
+      android:summary="@string/summary_checkbox_stop_scan"
+      android:defaultValue="true"/>
+
+    <CheckBoxPreference
+      android:key="checkbox_sound_signal"
+      android:title="@string/title_checkbox_sound_signal"/>
+
+    <CheckBoxPreference
+      android:key="checkbox_vibration"
+      android:title="@string/title_checkbox_vibration" />
+
+    <CheckBoxPreference
+      android:key="checkbox_copy_to_clipboard"
+      android:title="@string/title_checkbox_copy_to_clipboard" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+      android:title="@string/recognition_preferences">
+
+    <ListPreference
+      android:key="list_recognition_mode"
+      android:title="@string/title_list_recognition_mode"
+      android:summary="@string/summary_list_recognition_mode"
+      android:entries="@array/entries_list_recognition_mode"
+      android:entryValues="@array/entryvalues_list_recognition_mode"
+      android:dialogTitle="@string/dialog_title_list_recognition_mode"
+      android:defaultValue="adaptive"/>
+
+    <CheckBoxPreference
+      android:key="checkbox_invert_image"
+      android:title="@string/title_checkbox_invert_image"
+      android:summary="@string/summary_checkbox_invert_image"/>
+
+    <CheckBoxPreference
+      android:key="checkbox_reconstruct_structured_append_barcodes"
+      android:title="@string/title_checkbox_reconstruct_structured_append_barcodes"
+      android:summary="@string/summary_checkbox_reconstruct_structured_append_barcodes"
+      android:defaultValue="true"/>
+
+    <ListPreference
+        android:key="list_fps_limit"
+        android:title="@string/title_list_fps_limit"
+        android:summary="@string/summary_list_fps_limit"
+        android:entries="@array/entries_list_fps_limit"
+        android:entryValues="@array/entryvalues_list_fps_limit"
+        android:dialogTitle="@string/dialog_title_list_fps_limit"
+        android:defaultValue="10"/>
+
+    <ListPreference
+      android:key="list_encodings"
+      android:title="@string/title_list_encodings"
+      android:entries="@array/entries_list_encodings"
+      android:entryValues="@array/entryvalues_list_encodings"
+      android:dialogTitle="@string/dialog_title_list_encodings"
+      android:defaultValue="-1"/>
+  </PreferenceCategory>
+  <!-- Base Settings -->
+
+
+  <!-- Barcode Settings-->
+  <PreferenceCategory
+    android:title="@string/barcode_category_preference">
+
+    <CheckBoxPreference
+      android:key="checkbox_2D_barcodes_QR"
+      android:title="@string/title_checkbox_2D_barcodes_QR"
+      android:summary="@string/summary_checkbox_2D_barcodes_QR"
+      android:defaultValue="true"/>
+
+    <CheckBoxPreference
+      android:key="checkbox_2D_barcodes_DataMatrix"
+      android:title="@string/title_checkbox_2D_barcodes_DataMatrix"
+      android:summary="@string/summary_checkbox_2D_barcodes_DataMatrix" />
+
+    <CheckBoxPreference
+      android:key="checkbox_2D_barcodes_PDF417"
+      android:title="@string/title_checkbox_2D_barcodes_PDF417"
+      android:summary="@string/summary_checkbox_2D_barcodes_PDF417" />
+
+    <CheckBoxPreference
+      android:key="checkbox_2D_barcodes_Aztec"
+      android:title="@string/title_checkbox_2D_barcodes_Aztec"
+      android:summary="@string/summary_checkbox_2D_barcodes_Aztec" />
+
+    <CheckBoxPreference
+      android:key="checkbox_1D_barcodes_EAN8"
+      android:title="@string/title_checkbox_1D_barcodes_EAN8"
+      android:summary="@string/summary_checkbox_1D_barcodes_EAN8"/>
+
+    <CheckBoxPreference
+      android:key="checkbox_1D_barcodes_EAN13"
+      android:title="@string/title_checkbox_1D_barcodes_EAN13"
+      android:summary="@string/summary_checkbox_1D_barcodes_EAN13"
+      android:defaultValue="true"/>
+
+    <CheckBoxPreference
+      android:key="checkbox_1D_barcodes_Code39"
+      android:title="@string/title_checkbox_1D_barcodes_Code39"
+      android:summary="@string/summary_checkbox_1D_barcodes_Code39"/>
+
+    <CheckBoxPreference
+      android:key="checkbox_1D_barcodes_Code128"
+      android:title="@string/title_checkbox_1D_barcodes_Code128"
+      android:summary="@string/summary_checkbox_1D_barcodes_Code128"
+      android:defaultValue="true"/>
+
+
+
+    <!--GS1 Barcode Settings-->
+    <PreferenceScreen
+       android:key="screen_barcodes_GS1_preference"
+       android:title="@string/barcodes_stacked_GS1_preferences">
+
+      <CheckBoxPreference
+        android:key="checkbox_GS1_barcodes_GS1_128"
+        android:title="@string/title_checkbox_GS1_barcodes_GS1_128"
+        android:summary="@string/summary_checkbox_GS1_barcodes_GS1_128"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_GS1_barcodes_GS1DataBar"
+        android:title="@string/title_checkbox_GS1_barcodes_GS1DataBar"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_GS1_barcodes_GS1DataBarLimited"
+        android:title="@string/title_checkbox_GS1_barcodes_GS1DataBarLimited"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_GS1_barcodes_GS1DataBarExpanded"
+        android:title="@string/title_checkbox_GS1_barcodes_GS1DataBarExpanded"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_GS1_barcodes_GS1DataBarStacked"
+        android:title="@string/title_checkbox_GS1_barcodes_GS1DataBarStacked"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_GS1_barcodes_GS1DataBarExpandedStacked"
+        android:title="@string/title_checkbox_GS1_barcodes_GS1DataBarExpandedStacked"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_GS1_barcodes_Aztec"
+        android:title="@string/title_checkbox_GS1_barcodes_Aztec"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_GS1_barcodes_DataMatrix"
+        android:title="@string/title_checkbox_GS1_barcodes_DataMatrix"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_GS1_barcodes_QR"
+        android:title="@string/title_checkbox_GS1_barcodes_QR"/>
+
+    </PreferenceScreen>
+    <!--GS1 Barcode Settings-->
+
+
+    <!--2D Barcode Settings-->
+    <PreferenceScreen
+      android:key="screen_barcodes_2D_preference"
+      android:title="@string/barcodes_2D_preferences">
+
+      <CheckBoxPreference
+        android:key="checkbox_2D_barcodes_HanXin"
+        android:title="@string/title_checkbox_2D_barcodes_HanXin" />
+
+      <CheckBoxPreference
+        android:key="checkbox_2D_barcodes_PDF417Compact"
+        android:title="@string/title_checkbox_2D_barcodes_PDF417Compact" />
+
+      <CheckBoxPreference
+        android:key="checkbox_2D_barcodes_MicroPDF417"
+        android:title="@string/title_checkbox_2D_barcodes_MicroPDF417" />
+
+      <CheckBoxPreference
+        android:key="checkbox_2D_barcodes_MicroQR"
+        android:title="@string/title_checkbox_2D_barcodes_MicroQR"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_2D_barcodes_MaxiCode"
+        android:title="@string/title_checkbox_2D_barcodes_MaxiCode"/>
+
+    </PreferenceScreen>
+    <!--2D Barcode Settings-->
+
+
+
+    <!--1D Barcode Settings-->
+    <PreferenceScreen
+      android:key="screen_barcodes_1D_preference"
+      android:title="@string/barcodes_1D_preferences">
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_Codabar"
+        android:title="@string/title_checkbox_1D_barcodes_Codabar"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_Code11"
+        android:title="@string/title_checkbox_1D_barcodes_Code11"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_Code16K"
+        android:title="@string/title_checkbox_1D_Code16K" />
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_Code32"
+        android:title="@string/title_checkbox_1D_barcodes_Code32"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_Code39Ex"
+        android:title="@string/title_checkbox_1D_barcodes_Code39Ex"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_Code93"
+        android:title="@string/title_checkbox_1D_barcodes_Code93"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_DeutschePostIdentcode"
+        android:title="@string/title_checkbox_1D_barcodes_DeutschePostIdentcode"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_DeutschePostLeitcode"
+        android:title="@string/title_checkbox_1D_barcodes_DeutschePostLeitcode"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_DHLAWB"
+        android:title="@string/title_checkbox_1D_barcodes_DHLAWB"
+        android:summary="@string/summary_checkbox_1D_barcodes_DHLAWB"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_FedExGround96"
+        android:title="@string/title_checkbox_1D_barcodes_FedExGround96"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_IATA2of5"
+        android:title="@string/title_checkbox_1D_barcodes_IATA2of5"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_Interleaved2of5"
+        android:title="@string/title_checkbox_1D_barcodes_Interleaved2of5"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_ITF14"
+        android:title="@string/title_checkbox_1D_barcodes_ITF14"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_Matrix2of5"
+        android:title="@string/title_checkbox_1D_barcodes_Matrix2of5"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_MSI"
+        android:title="@string/title_checkbox_1D_barcodes_MSI"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_NumlyNumber"
+        android:title="@string/title_checkbox_1D_barcodes_NumlyNumber"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_OPC"
+        android:title="@string/title_checkbox_1D_barcodes_OPC"
+        android:summary="@string/summary_checkbox_1D_barcodes_OPC"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_PatchCode"
+        android:title="@string/title_checkbox_1D_barcodes_PatchCode"
+        android:summary="@string/summary_checkbox_1D_barcodes_PatchCode"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_Pharmacode"
+        android:title="@string/title_checkbox_1D_barcodes_Pharmacode"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_PZN"
+        android:title="@string/title_checkbox_1D_barcodes_PZN"
+        android:summary="@string/summary_checkbox_1D_barcodes_PZN"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_RSS14"
+        android:title="@string/title_checkbox_1D_barcodes_RSS14"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_RSSLimited"
+        android:title="@string/title_checkbox_1D_barcodes_RSSLimited"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_RSSExpanded"
+        android:title="@string/title_checkbox_1D_barcodes_RSSExpanded"/>
+
+      <CheckBoxPreference
+         android:key="checkbox_1D_RSS14_stacked"
+         android:title="@string/title_checkbox_1D_RSS14_stacked" />
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_RSSExpanded_stacked"
+        android:title="@string/title_checkbox_1D_RSSExpanded_stacked" />
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_SSCC18"
+        android:title="@string/title_checkbox_1D_barcodes_SSCC18"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_Standard2of5"
+        android:title="@string/title_checkbox_1D_barcodes_Standard2of5"
+        android:summary="@string/summary_checkbox_1D_barcodes_Standard2of5"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_SwissPostParcel"
+        android:title="@string/title_checkbox_1D_barcodes_SwissPostParcel"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_Telepen"
+        android:title="@string/title_checkbox_1D_barcodes_Telepen" />
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_UPCA"
+        android:title="@string/title_checkbox_1D_barcodes_UPCA"
+        android:summary="@string/summary_checkbox_1D_barcodes_UPCA"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_UPCE"
+        android:title="@string/title_checkbox_1D_barcodes_UPCE"
+        android:summary="@string/summary_checkbox_1D_barcodes_UPCE"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_VICS"
+        android:title="@string/title_checkbox_1D_barcodes_VICS"/>
+
+      <CheckBoxPreference
+        android:key="checkbox_1D_barcodes_VIN"
+        android:title="@string/title_checkbox_1D_barcodes_VIN"
+        android:summary="@string/summary_checkbox_1D_barcodes_VIN"/>
+    </PreferenceScreen>
+    <!--1D Barcode Settings-->
+
+
+    <!--1D Postal 2/4-state Barcodes Settings-->
+    <PreferenceScreen
+      android:key="screen_barcodes_postal_preference"
+      android:title="@string/barcodes_postal_1D_preferences">
+      <CheckBoxPreference
+        android:key="checkbox_postal_1D_AustralianPost"
+        android:title="@string/title_checkbox_postal_1D_AustralianPost"
+        android:summary="@string/summary_checkbox_postal_1D_AustralianPost" />
+
+      <CheckBoxPreference
+        android:key="checkbox_postal_1D_DutchKIX"
+        android:title="@string/title_checkbox_postal_1D_DutchKIX"
+        android:summary="@string/summary_checkbox_postal_1D_DutchKIX" />
+
+      <CheckBoxPreference
+        android:key="checkbox_postal_1D_RoyalMail"
+        android:title="@string/title_checkbox_postal_1D_RoyalMail"
+        android:summary="@string/summary_checkbox_postal_1D_RoyalMail" />
+
+      <CheckBoxPreference
+        android:key="checkbox_postal_1D_Postnet"
+        android:title="@string/title_checkbox_postal_1D_Postnet"
+        android:summary="@string/summary_checkbox_postal_1D_Postnet" />
+
+      <CheckBoxPreference
+        android:key="checkbox_postal_1D_Planet"
+        android:title="@string/title_checkbox_postal_1D_Planet"
+        android:summary="@string/summary_checkbox_postal_1D_Planet" />
+
+      <CheckBoxPreference
+        android:key="checkbox_postal_1D_IntelligentMail"
+        android:title="@string/title_checkbox_postal_1D_IntelligentMail"
+        android:summary="@string/summary_checkbox_postal_1D_Planet" />
+
+      <CheckBoxPreference
+        android:key="checkbox_postal_1D_Mailmark4C"
+        android:title="@string/title_checkbox_postal_1D_Mailmark4C"
+        android:summary="@string/summary_checkbox_postal_1D_Mailmark4C" />
+
+      <CheckBoxPreference
+        android:key="checkbox_postal_1D_Mailmark4L"
+        android:title="@string/title_checkbox_postal_1D_Mailmark4L"
+        android:summary="@string/summary_checkbox_postal_1D_Mailmark4L" />
+    </PreferenceScreen>
+    <!--1D Postal 2/4-state Barcodes Settings-->
+
+  </PreferenceCategory>
+
+
+  <PreferenceCategory
+    android:title="@string/settings_management_category_preference">
+
+    <Preference
+      android:key="set_defaults_button"
+      android:title="@string/title_set_default_settings"/>
+  </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--Titles and buttons-->
+  <string name="history_title">История</string>
+  <string name="settings_title">Настройки</string>
+  <string name="ok_button">Ок</string>
+  <string name="copy_value_button">Копировать значение</string>
+  <string name="vintasoft_barcodes_url">http://www.vintasoft.com/rus/vsbarcode-dotnet-index.html#BarcodeScannerDemo</string>
+  <!--Titles and buttons-->
+
+
+
+  <!-- Messages -->
+  <string name="about_message">Данное демо-приложение показывает, как распознать штрих-коды, используя VintaSoft Barcode .NET SDK.\nhttp://www.vintasoft.com/rus/vsbarcode-dotnet-index.html#BarcodeScannerDemo\n\nВерсия {0}</string>
+  <string name="language_change_message">Для смены языка вам необходимо перезапустить приложение.</string>
+
+  <string name="metadata_message">Метаданные:</string>
+  <string name="matrix_size_message">Размер матрицы: {0} x {1}</string>
+  <string name="cell_size_message">Размер ячейки: {0:f2} x {1:f2}</string>
+  <string name="mirrored_message">Отражен: {0}</string>
+  <string name="narrow_bar_count_message">Количество единичных штрихов: {0}</string>
+  <string name="narrow_bar_size_message">Размер единичного штриха: {0:f2}</string>
+  <string name="symbol_component_count_message">Количество символьных компонент: {0}</string>
+  <string name="reconstructed_message">Собрано, используя Структурированное Соединение.</string>
+  <string name="error_correction_level_message">Уровень коррекции ошибок: {0}</string>
+  <string name="rows_count_message">Количество строк: {0}</string>
+  <string name="symbol_type_message">Тип символа: {0}</string>
+  <string name="symbol_version_message">Версия символа: {0}</string>
+  <string name="error_correction_data_message">Данные коррекции ошибок: {0}%</string>
+  <string name="data_layers_message">Слои данных: {0}</string>
+  <string name="encoding_mode_message">Режим кодирования: {0}</string>
+  <string name="segments_count_message">Количество сегментов: {0}</string>
+  <string name="segments_in_row_message">Количество сегментов в строке: {0}</string>
+  <string name="linkage_flag_message">Флаг linkage: {0}</string>
+  <string name="upce_value_message">Значение UPCE: {0}</string>
+  <string name="recognition_quality_message">Качество распознавания: {0:f2}</string>
+
+  <string name="barcodes_recognized_message">{0} штрих-код(ов) найдено</string>
+  <string name="help_info_message">{0}, {1}x{2}px</string>
+  <string name="help_info_barcode_recognized_message">{0}x{1}px, Интервал={2}, Режим: {3}</string>
+  <string name="scan_mode_auto_message">Автоматический</string>
+  <string name="scan_mode_treshold_auto_message">Порог={0} (Авто)</string>
+  <string name="scan_mode_treshold_message">Порог={0}</string>
+  <string name="fps_message">FPS = {0}</string>
+  <string name="frame_scan_time_message">{0}, Время={1}ms</string>
+
+  <string name="click_for_detailed_info_message">Нажмите для получения детальной информации</string>
+
+  <string name="title_history_empty_message">Пусто</string>
+  <string name="summary_history_empty_message">Нет сохраненных штрих-кодов</string>
+
+  <string name="unsupported_encoding_message">Кодировка {0} не поддерживается</string>
+  
+
+
+  <!--Base Settings-->
+  <string name="title_list_languages">Язык</string>
+  <string name="dialog_title_list_languages">Выберите язык</string>
+  
+  <string name="camera_preferences">Настройки камеры</string>
+
+  <string name="title_checkbox_autofocus">Автофокус</string>
+
+  <string name="title_checkbox_continuous_autofocus">Непрерывная автофокусировка</string>
+  <string name="title_checkbox_autofocus_on_touch">Автофокусировка при касании</string>
+
+
+  <string name="title_list_camera_frame_sizes">Размер фрейма</string>
+  <string name="summary_list_camera_frame_sizes">Размер изображений с камеры</string>
+  <string name="dialog_title_list_camera_frame_sizes">Выберите размер фрейма</string>
+
+  <string name="barcode_found_preferences">Действие при нахождении штрих-кода</string>
+
+  <string name="title_checkbox_stop_scan">Остановить сканирование</string>
+  <string name="summary_checkbox_stop_scan">Отобразить изображение штрих-кода и его значение</string>
+
+  <string name="title_checkbox_sound_signal">Звуковой сигнал</string>
+
+  <string name="title_checkbox_vibration">Вибрация</string>
+
+  <string name="title_checkbox_copy_to_clipboard">Скопировать в буфер обмена</string>
+
+  <string name="title_list_encodings">Кодировка результата</string>
+  <string name="dialog_title_list_encodings">Выберите текстовую кодировку</string>
+
+  <string name="recognition_preferences">Настройки распознавания</string>
+
+  <string name="title_list_recognition_mode">Режим распознавания</string>
+  <string name="summary_list_recognition_mode">Режим использующийся при распознавании штрих-кодов в изображениях</string>
+  <string name="dialog_title_list_recognition_mode">Выберите режим распознавания</string>
+
+  <string name="title_checkbox_invert_image">Инвертировать изображение</string>
+  <string name="summary_checkbox_invert_image">Инвертировать цвета изображений до распознавания штрих-кода (для сканирования белых штрих-кодов на черном фоне)</string>
+
+  <string name="title_checkbox_reconstruct_structured_append_barcodes">Собирать составные штрих-коды</string>
+  <string name="summary_checkbox_reconstruct_structured_append_barcodes">Собирать составные штрих-коды в один штрих-код, используя структурированное соединение</string>
+
+  <string name="title_list_fps_limit">Ограничение FPS</string>
+  <string name="summary_list_fps_limit">Ограничение максимального количества сканируемых фреймов в секунду. Это ограничение позволяет сэкономить заряд батареи.</string>
+  <string name="dialog_title_list_fps_limit">Выберите значение FPS</string>
+
+  <string name="settings_management_category_preference">Управление настройками</string>
+  <string name="title_set_default_settings">Сбросить все настройки</string>
+  <!--Base Settings-->
+
+  
+  
+  <string name="barcode_category_preference">Типы штрих-кодов</string>
+
+  <!--2D Barcodes Settings-->
+  <string name="barcodes_2D_preferences">2D Штрих-коды</string>
+  <!--2D Barcodes Settings-->
+
+  
+  <!--GS1 Barcode Settings-->
+  <string name="barcodes_stacked_GS1_preferences">GS1 Штрих-коды</string>
+  <!--GS1 Barcode Settings-->
+
+
+  <!--1D Barcodes Settings-->
+  <string name="barcodes_1D_preferences">1D Штрих-коды</string>
+  <!--1D Barcodes Settings-->
+
+
+  <!--1D Postal 2/4-state Barcodes Settings-->
+  <string name="barcodes_postal_1D_preferences">1D Почтовые 2/4-ранговые Штрих-коды</string>
+  <!--1D Postal 2/4-state Barcodes Settings-->
+
+</resources>

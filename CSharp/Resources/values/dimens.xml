@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <dimen name="buttonPadding">10px</dimen>
+  <dimen name="textViewPadding">5px</dimen>
+  <dimen name="fontSize">24sp</dimen>
+  <dimen name="titleFontSize">28sp</dimen>
+  <dimen name="drawingFontSize">15sp</dimen>
+</resources>

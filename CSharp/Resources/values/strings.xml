@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--Titles and buttons-->
+  <string name="app_name">VintaSoft Barcode Scanner Demo</string>
+  <string name="history_title">History</string>
+  <string name="settings_title">Settings</string>
+  <string name="ok_button">OK</string>
+  <string name="copy_value_button">Copy value</string>
+  <string name="vintasoft_barcodes_url">http://www.vintasoft.com/vsbarcode-dotnet-index.html#BarcodeScannerDemo</string>
+  <!--Titles and buttons-->
+
+  
+  
+  <!-- Messages -->
+  <string name="about_message">This demo shows how to recognize barcodes using VintaSoft Barcode .NET SDK.\nhttp://www.vintasoft.com/vsbarcode-dotnet-index.html#BarcodeScannerDemo\n\nVersion {0}</string>
+  <string name="language_change_message">To change the language you need to restart the application.</string>
+  
+  <string name="metadata_message">Metadata:</string>
+  <string name="matrix_size_message">Matrix size: {0} x {1}</string>
+  <string name="cell_size_message">Cell size: {0:f2} x {1:f2}</string>
+  <string name="mirrored_message">Mirrored: {0}</string>
+  <string name="narrow_bar_count_message">Narrow bar count: {0}</string>
+  <string name="narrow_bar_size_message">Narrow bar size: {0:f2}</string>
+  <string name="symbol_component_count_message">Symbol component count: {0}</string>
+  <string name="reconstructed_message">Reconstructed using Structured Append character.</string>
+  <string name="error_correction_level_message">Error correction level: {0}</string>
+  <string name="rows_count_message">Rows count: {0}</string>
+  <string name="symbol_type_message">Symbol type: {0}</string>
+  <string name="symbol_version_message">Symbol version: {0}</string>
+  <string name="error_correction_data_message">Error correction data: {0}%</string>
+  <string name="data_layers_message">Data layers: {0}</string>
+  <string name="encoding_mode_message">Encoding mode: {0}</string>
+  <string name="segments_count_message">Segments count: {0}</string>
+  <string name="segments_in_row_message">Segments in row: {0}</string>
+  <string name="linkage_flag_message">Linkage flag: {0}</string>
+  <string name="upce_value_message">UPCE value: {0}</string>
+  <string name="recognition_quality_message">Recognition quality: {0:f2}</string>
+
+  <string name="barcodes_recognized_message">{0} barcode(s) found</string>
+  <string name="help_info_message">{0}, {1}x{2}px</string>
+  <string name="help_info_barcode_recognized_message">{0}x{1}px, Interval={2}, Mode: {3}</string>
+  <string name="scan_mode_auto_message">Automatic</string>
+  <string name="scan_mode_treshold_auto_message">Threshold={0} (Auto)</string>
+  <string name="scan_mode_treshold_message">Threshold={0}</string>
+  <string name="fps_message">FPS = {0}</string>
+  <string name="frame_scan_time_message">{0}, Time={1}ms</string>
+
+  <string name="click_for_detailed_info_message">Click for detailed information</string>
+
+  <string name="title_history_empty_message">Empty</string>
+  <string name="summary_history_empty_message">There are no saved barcodes</string>
+
+  <string name="unsupported_encoding_message">Encoding {0} is not supported</string>
+  
+  
+  
+  <!--Base Settings-->
+  <string name="title_list_languages">Language</string>
+  <string name="dialog_title_list_languages">Choose language</string>
+
+  <string name="camera_preferences">Camera settings</string>
+  
+  <string name="title_checkbox_autofocus">Autofocus</string>
+  
+  <string name="title_checkbox_continuous_autofocus">Continuous autofocus</string>
+  <string name="title_checkbox_autofocus_on_touch">Autofocus on touch</string>
+  
+  <string name="title_list_camera_frame_sizes">Camera frame size</string>
+  <string name="summary_list_camera_frame_sizes">The size of captured images</string>
+  <string name="dialog_title_list_camera_frame_sizes">Choose camera frame size</string>
+
+  <string name="barcode_found_preferences">Actions when a barcode is found</string>
+
+  <string name="title_checkbox_stop_scan">Stop scan</string>
+  <string name="summary_checkbox_stop_scan">Display barcode image with barcode value</string>
+  
+  <string name="title_checkbox_sound_signal">Sound signal</string>
+
+  <string name="title_checkbox_vibration">Vibration</string>
+  
+  <string name="title_checkbox_copy_to_clipboard">Copy to clipboard</string>
+
+  <string name="title_list_encodings">Result text encoding</string>
+  <string name="dialog_title_list_encodings">Choose text encoding</string>
+
+  <string name="recognition_preferences">Recognition settings</string>
+  
+  <string name="title_list_recognition_mode">Recognition mode</string>
+  <string name="summary_list_recognition_mode">Mode used for recognizing barcodes in captured images</string>
+  <string name="dialog_title_list_recognition_mode">Choose recognition mode</string>
+
+  <string name="title_checkbox_invert_image">Invert image</string>
+  <string name="summary_checkbox_invert_image">Invert image colors before barcode recognition (scan for white barcodes on black background)</string>
+  
+  <string name="title_checkbox_reconstruct_structured_append_barcodes">Reconstruct the Structured Append barcodes</string>
+  <string name="summary_checkbox_reconstruct_structured_append_barcodes">Reconstruct the structured append barcodes into a single barcode</string>
+
+  <string name="title_list_fps_limit">FPS limit</string>
+  <string name="summary_list_fps_limit">Limits the maximum number of scanning frames per second. This limitation allows to save the battery charge.</string>
+  <string name="dialog_title_list_fps_limit">Choose FPS value</string>
+
+  <string name="settings_management_category_preference">Settings management</string>
+  <string name="title_set_default_settings">Reset settings</string>
+  <!--Base Settings-->
+
+  <string name="barcode_category_preference">Barcode types</string>
+  
+  <!--2D Barcodes Settings-->
+  <string name="barcodes_2D_preferences">2D Barcodes</string>
+
+  <string name="title_checkbox_2D_barcodes_Aztec">Aztec</string>
+  <string name="summary_checkbox_2D_barcodes_Aztec">Aztec, Aztec Compact, Aztec Rune, XFA Compressed Aztec</string>
+
+  <string name="title_checkbox_2D_barcodes_DataMatrix">Data Matrix</string>
+  <string name="summary_checkbox_2D_barcodes_DataMatrix">Data Matrix, GS1 Data Matrix, PPN, Royal Mail Mailmark CMDM, XFA Compressed DataMatrix</string>
+
+  <string name="title_checkbox_2D_barcodes_HanXin">Han Xin Code</string>
+
+  <string name="title_checkbox_2D_barcodes_PDF417">PDF417</string>
+  <string name="summary_checkbox_2D_barcodes_PDF417">PDF417, Macro PDF417, XFA Compressed PDF417</string>
+
+  <string name="title_checkbox_2D_barcodes_PDF417Compact">PDF417 Compact</string>
+  
+  <string name="title_checkbox_2D_barcodes_MicroPDF417">Micro PDF417</string>
+  
+  <string name="title_checkbox_2D_barcodes_QR">QR Code</string>
+  <string name="summary_checkbox_2D_barcodes_QR">QR Code, XFA Compressed QR Code</string>
+
+  <string name="title_checkbox_2D_barcodes_MicroQR">Micro QR Code</string>
+
+  <string name="title_checkbox_2D_barcodes_MaxiCode">MaxiCode</string>
+  <!--2D Barcodes Settings-->
+
+  
+  <!--GS1 Barcode Settings-->
+  <string name="barcodes_stacked_GS1_preferences">GS1 Barcodes</string>
+
+  <string name="title_checkbox_GS1_barcodes_Aztec">GS1 Aztec</string>
+
+  <string name="title_checkbox_GS1_barcodes_DataMatrix">GS1 Data Matrix</string>
+
+  <string name="title_checkbox_GS1_barcodes_QR">GS1 QR Code</string>
+
+  <string name="title_checkbox_GS1_barcodes_GS1_128">GS1-128</string>
+  <string name="summary_checkbox_GS1_barcodes_GS1_128">GS1-128 (UCC/EAN-128, EAN-128)</string>
+
+  <string name="title_checkbox_GS1_barcodes_GS1DataBar">GS1 Data Bar</string>
+
+  <string name="title_checkbox_GS1_barcodes_GS1DataBarLimited">GS1 Data Bar Limited</string>
+
+  <string name="title_checkbox_GS1_barcodes_GS1DataBarExpanded">GS1 Data Bar Expanded</string>
+
+  <string name="title_checkbox_GS1_barcodes_GS1DataBarStacked">GS1 Data Bar Stacked</string>
+
+  <string name="title_checkbox_GS1_barcodes_GS1DataBarExpandedStacked">GS1 Data Bar Expanded Stacked</string>
+  <!--GS1 Barcode Settings-->
+  
+  
+  <!--1D Barcodes Settings-->
+  <string name="barcodes_1D_preferences">1D Barcodes</string>
+
+  <string name="title_checkbox_1D_barcodes_Codabar">Codabar</string>
+  
+  <string name="title_checkbox_1D_barcodes_Code11">Code 11</string>
+  
+  <string name="title_checkbox_1D_Code16K">Code 16K</string>
+  
+  <string name="title_checkbox_1D_barcodes_Code128">Code 128</string>
+  <string name="summary_checkbox_1D_barcodes_Code128">Code 128 (ANSI/AIM Code 128, USS Code 128)</string>
+  
+  <string name="title_checkbox_1D_barcodes_Code32">Code 32</string>
+  
+  <string name="title_checkbox_1D_barcodes_Code39">Code 39</string>
+  <string name="summary_checkbox_1D_barcodes_Code39">Code 39 (Alpha39, Code 3 of 9, Type 39, USS Code 39, USD-3)</string>
+
+  <string name="title_checkbox_1D_barcodes_Code39Ex">Code 39 Extended</string>
+
+  <string name="title_checkbox_1D_barcodes_Code93">Code 93</string>
+  
+  <string name="title_checkbox_1D_barcodes_DeutschePostIdentcode">Deutsche Post Identcode</string>
+
+  <string name="title_checkbox_1D_barcodes_DeutschePostLeitcode">Deutsche Post Leitcode</string>
+
+  <string name="title_checkbox_1D_barcodes_DHLAWB">DHL AWB</string>
+  <string name="summary_checkbox_1D_barcodes_DHLAWB">DHL AWB (DHL Code 39 AWB)</string>
+
+  <string name="title_checkbox_1D_barcodes_EAN8">EAN-8</string>
+  <string name="summary_checkbox_1D_barcodes_EAN8">EAN-8, EAN-8 +2, EAN-8 +5, JAN-8, EAN-Velocity</string>
+
+  <string name="title_checkbox_1D_barcodes_EAN13">EAN-13</string>
+  <string name="summary_checkbox_1D_barcodes_EAN13">EAN-13, EAN-13 +2, EAN-13 +5, JAN-13, ISBN, ISSN, ISMN</string>
+
+  <string name="title_checkbox_1D_barcodes_FedExGround96">FedEx Ground96</string>
+  
+  <string name="title_checkbox_1D_barcodes_IATA2of5">IATA 2 of 5</string>
+
+  <string name="title_checkbox_1D_barcodes_Interleaved2of5">Interleaved 2 of 5</string>
+
+  <string name="title_checkbox_1D_barcodes_ITF14">ITF-14</string>
+
+  <string name="title_checkbox_1D_barcodes_Matrix2of5">Matrix 2 of 5</string>
+
+  <string name="title_checkbox_1D_barcodes_MSI">MSI</string>
+
+  <string name="title_checkbox_1D_barcodes_NumlyNumber">Numly Number</string>
+
+  <string name="title_checkbox_1D_barcodes_OPC">OPC</string>
+  <string name="summary_checkbox_1D_barcodes_OPC">OPC (Optical Product Code)</string>
+
+  <string name="title_checkbox_1D_barcodes_PatchCode">Patch Code</string>
+  <string name="summary_checkbox_1D_barcodes_PatchCode">Patch Code (Kodak Patch Code)</string>
+
+  <string name="title_checkbox_1D_barcodes_Pharmacode">Pharmacode (Laetus Pharmacode)</string>
+    
+  <string name="title_checkbox_1D_barcodes_PZN">PZN</string>
+  <string name="summary_checkbox_1D_barcodes_PZN">PZN (Pharmazentralnummer)</string>
+
+  <string name="title_checkbox_1D_barcodes_RSS14">RSS-14</string>
+
+  <string name="title_checkbox_1D_barcodes_RSSLimited">RSS Limited</string>
+
+  <string name="title_checkbox_1D_barcodes_RSSExpanded">RSS Expanded</string>
+
+  <string name="title_checkbox_1D_RSS14_stacked">RSS-14 Stacked</string>
+
+  <string name="title_checkbox_1D_RSSExpanded_stacked">RSS Expanded Stacked</string>
+
+  <string name="title_checkbox_1D_barcodes_SSCC18">SSCC-18</string>
+
+  <string name="title_checkbox_1D_barcodes_Standard2of5">Standard 2 of 5</string>
+  <string name="summary_checkbox_1D_barcodes_Standard2of5">Standard 2 of 5 (Industrial 2 of 5, Code 2/5)</string>
+
+  <string name="title_checkbox_1D_barcodes_SwissPostParcel">Swiss PostParcel</string>
+
+  <string name="title_checkbox_1D_barcodes_Telepen">Telepen</string>
+
+  <string name="title_checkbox_1D_barcodes_UPCA">UPC-A</string>
+  <string name="summary_checkbox_1D_barcodes_UPCA">UPC-A, UPC-A +2, UPC-A +5</string>
+
+  <string name="title_checkbox_1D_barcodes_UPCE">UPC-E</string>
+  <string name="summary_checkbox_1D_barcodes_UPCE">UPC-E, UPC-E +2, UPC-E +5</string>
+
+  <string name="title_checkbox_1D_barcodes_VICS">VICS BOL, VICS SCAC PRO</string>
+  
+  <string name="title_checkbox_1D_barcodes_VIN">VIN</string>
+  <string name="summary_checkbox_1D_barcodes_VIN">VIN (Vehicle Identification Number)</string>
+  <!--1D Barcodes Settings-->
+
+  
+  
+  <!--1D Postal 2/4-state Barcodes Settings-->
+  <string name="barcodes_postal_1D_preferences">1D Postal 2/4-state Barcodes</string>
+
+  <string name="title_checkbox_postal_1D_AustralianPost">Australian Post</string>
+  <string name="summary_checkbox_postal_1D_AustralianPost">Australian Post (Australia Post Customer Barcode)</string>
+
+  <string name="title_checkbox_postal_1D_DutchKIX">Dutch KIX</string>
+  <string name="summary_checkbox_postal_1D_DutchKIX">Dutch KIX (Royal TPG Post KIX)</string>
+
+  <string name="title_checkbox_postal_1D_RoyalMail">Royal Mail</string>
+  <string name="summary_checkbox_postal_1D_RoyalMail">Royal Mail (RM4SCC, RoyalMail4SCC, Singapore 4-State Postal)</string>
+  
+  <string name="title_checkbox_postal_1D_Postnet">Postnet</string>
+  <string name="summary_checkbox_postal_1D_Postnet">Postnet (USPS POSTNET)</string>
+
+  <string name="title_checkbox_postal_1D_Planet">Planet</string>
+  <string name="summary_checkbox_postal_1D_Planet">Planet (USPS PLANET, USPS Confirm Service Barcode)</string>
+
+  <string name="title_checkbox_postal_1D_IntelligentMail">Intelligent Mail</string>
+  <string name="summary_checkbox_postal_1D_IntelligentMail">Intelligent Mail</string>
+  
+  <string name="title_checkbox_postal_1D_Mailmark4C">Mailmark 4-state barcode C</string>
+  <string name="summary_checkbox_postal_1D_Mailmark4C">Mailmark 4-state barcode C (Royal Mail Mailmark 4-state barcode C)</string>
+  
+  <string name="title_checkbox_postal_1D_Mailmark4L">Mailmark 4-state barcode L</string>
+  <string name="summary_checkbox_postal_1D_Mailmark4L">Mailmark 4-state barcode L (Royal Mail Mailmark 4-state barcode L)</string>
+  <!--1D Postal 2/4-state Barcodes Settings-->
+
+</resources>
