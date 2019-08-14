@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -58,8 +58,8 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
-    <Reference Include="Vintasoft.XamarinBarcode.Android, Version=11.0.2.3, Culture=neutral, PublicKeyToken=153caf29a10d2e31, processorArchitecture=MSIL">
-      <HintPath>packages\Vintasoft.XamarinBarcode.Android.11.0.2.3\lib\MonoAndroid403\Vintasoft.XamarinBarcode.Android.dll</HintPath>
+    <Reference Include="Vintasoft.XamarinBarcode.Android">
+      <HintPath>packages\Vintasoft.XamarinBarcode.Android.12.0.7.1\lib\MonoAndroid403\Vintasoft.XamarinBarcode.Android.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
