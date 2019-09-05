@@ -203,6 +203,22 @@ namespace BarcodeScannerDemo
             }
         }
 
+        bool _isImageFlipped = false;
+        /// <summary>
+        /// Gets or sets a value which indicates that image from camera was flipped.
+        /// </summary>
+        internal bool IsImageFlipped
+        {
+            get
+            {
+                return _isImageFlipped;
+            }
+            set
+            {
+                _isImageFlipped = value;
+            }
+        }
+
         #endregion
 
 
@@ -242,12 +258,7 @@ namespace BarcodeScannerDemo
 
             // modify canvas transformation
             canvas.Save();
-
-            using (Matrix m = new Matrix())
-            {
-                m.PostScale(1, 1, width / 2, height / 2);
-                canvas.Concat(m);
-            }
+         
             canvas.Scale(scaleX, scaleY);
             _canvasTransform = canvas.Matrix;
 
@@ -261,6 +272,12 @@ namespace BarcodeScannerDemo
             // get all barcodes
             IBarcodeInfo[] barcodes = _barcodes;
 
+            // if image flipped
+            if (IsImageFlipped)
+            {
+                canvas.Save();
+                canvas.Scale(-1, 1, (1 / scaleX) * width / 2, (1 / scaleY) * height / 2);
+            }
 
             _paint.StrokeWidth = 1 / scaleX;
             // if recognized barcode is not empty
@@ -313,7 +330,14 @@ namespace BarcodeScannerDemo
                     foreach (IBarcodeInfo barcodeInfo in barcodes)
                         // draw barcode info
                         DrawBarcodeInfo(canvas, _paint, barcodeInfo, scaleX);
+
                 }
+            }
+
+            // if image flipped
+            if (IsImageFlipped)
+            {
+                canvas.Restore();
             }
 
             bool hasRecognizedBarcode = recognizedBarcode != null;
@@ -500,7 +524,7 @@ namespace BarcodeScannerDemo
         /// <param name="color">A text color.</param>
         /// <param name="alpha">A text alpha.</param>
         /// <param name="verticalCentering">A value that indicates whether text should be centered vertically.</param>
-        private static void DrawText(Canvas canvas, Rectangle rect, string text, float size, Color color, int alpha, bool verticalCentering)
+        private void DrawText(Canvas canvas, Rectangle rect, string text, float size, Color color, int alpha, bool verticalCentering)
         {
             canvas.Save();
 
@@ -515,6 +539,10 @@ namespace BarcodeScannerDemo
                     canvas.Translate(rect.X, rect.Y + (rect.Height - textLayout.Height) / 2);
                 else
                     canvas.Translate(rect.X, rect.Y + rect.Height - textLayout.Height);
+
+                // if image flipped
+                if (IsImageFlipped)
+                    canvas.Scale(-1, 1, rect.Width / 2, 0);
 
                 textLayout.Draw(canvas);
             }

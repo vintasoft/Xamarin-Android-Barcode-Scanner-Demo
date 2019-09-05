@@ -80,6 +80,11 @@
       android:summary="@string/summary_checkbox_invert_image"/>
 
     <CheckBoxPreference
+      android:key="checkbox_flip_image"
+      android:title="@string/title_checkbox_flip_image"
+      android:summary="@string/summary_checkbox_flip_image"/>
+
+    <CheckBoxPreference
       android:key="checkbox_reconstruct_structured_append_barcodes"
       android:title="@string/title_checkbox_reconstruct_structured_append_barcodes"
       android:summary="@string/summary_checkbox_reconstruct_structured_append_barcodes"

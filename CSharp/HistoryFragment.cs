@@ -102,7 +102,7 @@ namespace BarcodeScannerDemo
                 View view = convertView;
                 if (view == null)
                     view = LayoutInflater.From(Context).Inflate(_resourceId, parent, false);
-
+                
                 // get the first text view
                 TextView textView1 = view.FindViewById<TextView>(Android.Resource.Id.Text1);
                 textView1.SetTextColor(Android.Graphics.Color.Orange);
@@ -203,9 +203,9 @@ namespace BarcodeScannerDemo
         /// </returns>
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
-            return base.OnCreateView(inflater, container, savedInstanceState);
+            Context contextThemeWrapper = new ContextThemeWrapper(Activity, Resource.Style.HistoryDialogTheme);
+            LayoutInflater localInflater = inflater.CloneInContext(contextThemeWrapper);
+            return base.OnCreateView(localInflater, container, savedInstanceState);
         }
 
         /// <summary>
@@ -226,9 +226,18 @@ namespace BarcodeScannerDemo
             if (barcodeObjectList.Count == 0)
                 barcodeObjectList.Add("Empty");
 
-            // get preferences
-            ISharedPreferences preferences = PreferenceManager.GetDefaultSharedPreferences(Activity);
-            _textEncodingName = preferences.GetString("list_encodings", "-1");
+            _textEncodingName = "-1";
+            try
+            {
+                // get preferences
+                ISharedPreferences preferences = PreferenceManager.GetDefaultSharedPreferences(Activity);
+                // get text encoding name from preferences
+                _textEncodingName = preferences.GetString("list_encodings", "-1");
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(Activity, string.Format("History error: {0}", ex.Message), ToastLength.Short).Show();
+            }
 
             // create list adapter
             ListAdapter = new BarcodeArrayAdapter(

@@ -2,7 +2,8 @@
 using Android.Hardware;
 using Android.OS;
 using Android.Preferences;
-
+using Android.Views;
+using Android.Widget;
 using System.Collections.Generic;
 using System.Text;
 
@@ -98,28 +99,59 @@ namespace BarcodeScannerDemo
         }
 
         /// <summary>
+        /// Called to have the fragment instantiate its user interface view.
+        /// </summary>
+        /// <param name="inflater">The <see cref="LayoutInflater"/> object that can be used to inflate any views in the fragment.</param>
+        /// <param name="container">
+        /// If non-null, this is the parent view that the fragment's UI should be attached to. 
+        /// The fragment should not add the view itself, but this can be used to generate the LayoutParams of the view.
+        /// </param>
+        /// <param name="savedInstanceState">
+        /// If non-null, this fragment is being re-constructed from a previous saved state as given here.
+        /// </param>
+        /// <returns>
+        /// The created view.
+        /// </returns>
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            Context contextThemeWrapper = new ContextThemeWrapper(Activity, Resource.Style.SettingsDialogTheme);
+            LayoutInflater localInflater = inflater.CloneInContext(contextThemeWrapper);            
+            return base.OnCreateView(localInflater, container, savedInstanceState);
+        }
+        
+
+        /// <summary>
         /// Preference is clicked.
         /// </summary>
         /// <param name="preferenceScreen">The preference screen of <paramref name="preference"/>.</param>
         /// <param name="preference">The clicked preference.</param>
         public override bool OnPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference)
-        {
+        {            
             if (preference is PreferenceScreen)
             {
                 ((PreferenceScreen)preference).Dialog.Window.AddFlags(Android.Views.WindowManagerFlags.Fullscreen);
             }
-
+            
             // if "Reset settings" button is clicked
             if (preference.Key == "set_defaults_button")
             {
-                // get preferences
-                ISharedPreferences preferences = PreferenceManager.GetDefaultSharedPreferences(Activity);
-                // save the previous language value
-                _previousLanguageValue = preferences.GetString("list_languages", "auto");
-                // clear the preferences
-                preferences.Edit().Clear().Commit();
-                // refresh the UI
-                RefreshUI();
+                try
+                {
+                    // get preferences
+                    ISharedPreferences preferences = PreferenceManager.GetDefaultSharedPreferences(Activity);
+                    // save the previous language value
+                    _previousLanguageValue = preferences.GetString("list_languages", "auto");
+                    // clear the preferences
+                    preferences.Edit().Clear().Commit();
+                    // refresh the UI
+                    RefreshUI();
+                }
+                catch (System.Exception ex)
+                {
+                    Toast.MakeText(Activity, string.Format("Settings error: {0}", ex.Message), ToastLength.Short).Show();
+                }
+
+                Toast.MakeText(Activity, Resource.String.default_settings_setted_message, ToastLength.Short).Show();
             }
 
             return base.OnPreferenceTreeClick(preferenceScreen, preference);
@@ -131,7 +163,15 @@ namespace BarcodeScannerDemo
         public override void OnResume()
         {
             base.OnResume();
-            PreferenceManager.GetDefaultSharedPreferences(Activity).RegisterOnSharedPreferenceChangeListener(this);
+
+            try
+            {
+                PreferenceManager.GetDefaultSharedPreferences(Activity).RegisterOnSharedPreferenceChangeListener(this);
+            }
+            catch (System.Exception ex)
+            {
+                Toast.MakeText(Activity, string.Format("Settings error: {0}", ex.Message), ToastLength.Short).Show();
+            }
         }
 
         /// <summary>
@@ -139,7 +179,15 @@ namespace BarcodeScannerDemo
         /// </summary>
         public override void OnPause()
         {
-            PreferenceManager.GetDefaultSharedPreferences(Activity).UnregisterOnSharedPreferenceChangeListener(this);
+            try
+            {
+                PreferenceManager.GetDefaultSharedPreferences(Activity).UnregisterOnSharedPreferenceChangeListener(this);
+            }
+            catch (System.Exception ex)
+            {
+                Toast.MakeText(Activity, string.Format("Settings error: {0}", ex.Message), ToastLength.Short).Show();
+            }
+
             base.OnPause();
         }
 
@@ -153,16 +201,24 @@ namespace BarcodeScannerDemo
             // if language is changed
             if (key == "list_languages")
             {
-                // get new language value
-                string newLanguageValue = sharedPreferences.GetString(key, "auto");
-                // if new language differs from the previous language
-                if (newLanguageValue != _previousLanguageValue)
+                try
+                {
+                    // get new language value
+                    string newLanguageValue = sharedPreferences.GetString(key, "auto");
+                    // if new language differs from the previous language
+                    if (newLanguageValue != _previousLanguageValue)
+                    {
+                        // notify user that application must be restarted
+                        ((MainActivity)Activity).ShowInfoDialog(
+                            Resources.GetString(Resource.String.app_name),
+                            Resources.GetString(Resource.String.language_change_message));
+                        _previousLanguageValue = newLanguageValue;
+                    }
+                }
+                catch
                 {
                     // notify user that application must be restarted
-                    ((MainActivity)Activity).ShowInfoDialog(
-                        Resources.GetString(Resource.String.app_name),
-                        Resources.GetString(Resource.String.language_change_message));
-                    _previousLanguageValue = newLanguageValue;
+                    Toast.MakeText(Activity, Resource.String.language_change_message, ToastLength.Long).Show();
                 }
             }
         }

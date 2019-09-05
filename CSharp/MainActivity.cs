@@ -1,12 +1,13 @@
-﻿using Android.App;
+﻿using Android;
+using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Content.Res;
 using Android.OS;
 using Android.Preferences;
 using Android.Runtime;
+using Android.Support.V7.App;
 using Android.Text.Method;
-using Android.Text.Util;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -16,7 +17,6 @@ using Java.Util;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Text;
 
 using Vintasoft.XamarinBarcode;
@@ -29,13 +29,19 @@ namespace BarcodeScannerDemo
     /// </summary>
     [Activity(Label = "VintaSoft Barcode Scanner", MainLauncher = true, Icon = "@mipmap/icon",
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.KeyboardHidden,
+        Theme = "@style/AppTheme",
         ScreenOrientation = ScreenOrientation.Landscape)]
     [IntentFilter(new[] { Intents.Scan.ACTION },
         Categories = new[] { Intent.CategoryDefault })]
-    public class MainActivity : Activity
+    public class MainActivity : AppCompatActivity
     {
 
         #region Constants
+
+        /// <summary>
+        /// The request code for permissions.
+        /// </summary>
+        const int PERMISSION_REQUEST_CODE = 100;
 
         /// <summary>
         /// The barcode scanner fragment tag.
@@ -77,7 +83,7 @@ namespace BarcodeScannerDemo
         /// <summary>
         /// The info dialog.
         /// </summary>
-        AlertDialog _infoDialog = null;
+        Android.Support.V7.App.AlertDialog _infoDialog = null;
 
         /// <summary>
         /// The positive button in info dialog.
@@ -93,6 +99,25 @@ namespace BarcodeScannerDemo
         /// A value to copy from info dialog.
         /// </summary>
         string _infoDialogValueToCopy = null;
+
+        /// <summary>
+        /// Determines that "Camera" permission is granted.
+        /// </summary>
+        bool _isCameraPermissionGranted = false;
+
+        #endregion
+
+
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="MainActivity"/> class.
+        /// </summary>
+        public MainActivity()
+            : base()
+        {
+        }
 
         #endregion
 
@@ -130,117 +155,7 @@ namespace BarcodeScannerDemo
 
         #region Methods
 
-        /// <summary>
-        /// Called when the activity is starting.
-        /// </summary>
-        /// <param name="savedInstanceState">
-        /// If the activity is being re-initialized after previously being shut down then
-        /// this <see cref="Bundle"/> contains the data it most recently supplied in 
-        /// <see cref="Android.App.Activity.OnSaveInstanceState(Android.OS.Bundle)"/>.
-        /// Note: Otherwise it is <b>null</b>.
-        /// </param>
-        protected override void OnCreate(Bundle savedInstanceState)
-        {
-            // subscribe to the unhandled exception events
-            AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-
-            base.OnCreate(savedInstanceState);
-
-            // add "fullscreen" window flag
-            Window.AddFlags(WindowManagerFlags.Fullscreen);
-
-            // set our view from the "main" layout resource
-            SetContentView(Resource.Layout.main);
-
-            // set the default values from an XML preference file
-            PreferenceManager.SetDefaultValues(this, Resource.Xml.settings_page, false);
-
-            // get preferences
-            ISharedPreferences preferences = PreferenceManager.GetDefaultSharedPreferences(this);
-            // get the language name
-            string languageToLoad = preferences.GetString("list_languages", "auto");
-            // if language name is not auto
-            if (languageToLoad != "auto")
-            {
-                // set choosen locale
-                Locale locale = new Locale(languageToLoad);
-                Locale.Default = locale;
-                Configuration config = new Configuration();
-                config.Locale = locale;
-                BaseContext.Resources.UpdateConfiguration(config, BaseContext.Resources.DisplayMetrics);
-
-                this.SetContentView(Resource.Layout.main);
-            }
-
-            ActionBar.SetHomeButtonEnabled(false);
-            ActionBar.SetDisplayHomeAsUpEnabled(false);
-
-            // create fragments
-            _barcodeScannerFragment = new BarcodeScannerFragment(RecognizedBarcodes);
-            _historyFragment = new HistoryFragment();
-            _settingsFragment = new SettingsFragment();
-
-            // show barcode scanner fragment
-            SwitchToBarcodeScanner(null);
-        }
-
-        /// <summary>
-        /// Activity is started.
-        /// </summary>
-        protected override void OnStart()
-        {
-            base.OnStart();
-
-            try
-            {
-                // open camera
-                _barcodeScannerFragment.CameraController.OpenCamera();
-            }
-            catch (Exception ex)
-            {
-                Toast.MakeText(this, string.Format("Camera exception: {0}", ex.Message), ToastLength.Short).Show();
-            }
-        }
-
-        /// <summary>
-        /// Activity is stoped.
-        /// </summary>
-        protected override void OnStop()
-        {
-            base.OnStop();
-
-            // close camera
-            _barcodeScannerFragment.CameraController.CloseCamera();
-        }
-
-        /// <summary>
-        /// Activity is resumed.
-        /// </summary>
-        protected override void OnResume()
-        {
-            base.OnResume();
-
-            // if intent is not empty
-            if (Intent != null)
-            {
-                // get the intent action
-                string action = Intent.Action;
-                // get the intent data
-                string dataString = Intent.DataString;
-
-                // if action is scan action or view action
-                if (action == Intents.Scan.ACTION || action == Intent.ActionView)
-                {
-                    // specify that application is executed from another application
-                    _intentSource = Intents.IntentSource.NAITIVE_APP_INTENT;
-                    // show dialog about barcode scanner demo
-                    ShowInfoDialog(
-                        Resources.GetString(Resource.String.app_name),
-                        string.Format(Resources.GetString(Resource.String.about_message), System.Reflection.Assembly.GetExecutingAssembly().GetName().Version));
-                }
-            }
-        }
+        #region PUBLIC
 
         /// <summary>
         /// Called when a key was pressed down and not handled by any of the views inside of the activity.
@@ -284,8 +199,221 @@ namespace BarcodeScannerDemo
             return base.OnKeyDown(keyCode, e);
         }
 
+        #endregion
 
-        #region Switch To Fragment
+
+        #region PROTECTED
+
+        /// <summary>
+        /// Called when the activity is starting.
+        /// </summary>
+        /// <param name="savedInstanceState">
+        /// If the activity is being re-initialized after previously being shut down then
+        /// this <see cref="Bundle"/> contains the data it most recently supplied in 
+        /// <see cref="Android.App.Activity.OnSaveInstanceState(Android.OS.Bundle)"/>.
+        /// Note: Otherwise it is <b>null</b>.
+        /// </param>
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            // subscribe to the unhandled exception events
+            AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
+            base.OnCreate(savedInstanceState);
+
+            // add "fullscreen" window flag
+            Window.AddFlags(WindowManagerFlags.Fullscreen);
+
+            // set our view from the "main" layout resource
+            SetContentView(Resource.Layout.main);
+
+            try
+            {
+                // set the default values from an XML preference file
+                PreferenceManager.SetDefaultValues(this, Resource.Xml.settings_page, false);
+
+                // get preferences
+                ISharedPreferences preferences = PreferenceManager.GetDefaultSharedPreferences(this);
+                // get the language name
+                string languageToLoad = preferences.GetString("list_languages", "auto");
+                // if language name is not auto
+                if (languageToLoad != "auto")
+                {
+                    // set choosen locale
+                    Locale locale = new Locale(languageToLoad);
+                    Locale.Default = locale;
+                    Configuration config = new Configuration();
+                    config.Locale = locale;
+                    BaseContext.Resources.UpdateConfiguration(config, BaseContext.Resources.DisplayMetrics);
+
+                    this.SetContentView(Resource.Layout.main);
+                }
+            }
+            catch
+            {
+            }
+
+            SupportActionBar.SetHomeButtonEnabled(false);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(false);
+
+            // if Android version is equal or higher than 6.0 (API 23)
+            if (Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.M)
+            {
+                if (CheckSelfPermission(Android.Manifest.Permission.Camera) != Permission.Granted ||
+                    CheckSelfPermission(Android.Manifest.Permission.Flashlight) != Permission.Granted ||
+                    CheckSelfPermission(Android.Manifest.Permission.Vibrate) != Permission.Granted)
+                {
+                    RequestPermissions(
+                        new string[] { Android.Manifest.Permission.Camera, Android.Manifest.Permission.Flashlight, Android.Manifest.Permission.Vibrate },
+                        PERMISSION_REQUEST_CODE);
+                }
+                else
+                {
+                    _isCameraPermissionGranted = true;
+
+                    // create fragments
+                    _barcodeScannerFragment = new BarcodeScannerFragment(RecognizedBarcodes, true, true);
+                    _historyFragment = new HistoryFragment();
+                    _settingsFragment = new SettingsFragment();
+
+                    // show barcode scanner fragment
+                    SwitchToBarcodeScanner(null);
+                }
+            }
+            // if Android version is less than 6.0 (API 23)
+            else
+            {
+                _isCameraPermissionGranted = true;
+
+                // create fragments
+                _barcodeScannerFragment = new BarcodeScannerFragment(RecognizedBarcodes, true, true);
+                _historyFragment = new HistoryFragment();
+                _settingsFragment = new SettingsFragment();
+
+                // show barcode scanner fragment
+                SwitchToBarcodeScanner(null);
+            }
+        }
+
+        /// <summary>
+        /// Called when request permissions result occured.
+        /// </summary>
+        /// <param name="requestCode">The request code.</param>
+        /// <param name="permissions">The permissions.</param>
+        /// <param name="grantResults">The grant results.</param>
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        {
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            if (requestCode == PERMISSION_REQUEST_CODE)
+            {
+                bool isFlashlightPermissionGranted = false;
+                if (grantResults[1] == Permission.Granted)
+                {
+                    isFlashlightPermissionGranted = true;
+                }
+
+                bool isVibratePermissionGranted = false;
+                if (grantResults[2] == Permission.Granted)
+                {
+                    isVibratePermissionGranted = true;
+                }
+
+                if (grantResults[0] == Permission.Granted)
+                {
+                    // create fragments
+                    _barcodeScannerFragment = new BarcodeScannerFragment(RecognizedBarcodes, isFlashlightPermissionGranted, isVibratePermissionGranted);
+                    _historyFragment = new HistoryFragment();
+                    _settingsFragment = new SettingsFragment();
+
+                    _isCameraPermissionGranted = true;
+                    // show barcode scanner fragment
+                    SwitchToBarcodeScanner(null);
+                    // open camera
+                    OpenCamera();
+                }
+                else
+                {
+                    // close application
+                    Finish();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Opens the camera device.
+        /// </summary>
+        private void OpenCamera()
+        {
+            if (_isCameraPermissionGranted)
+            {
+                try
+                {
+                    // open camera
+                    _barcodeScannerFragment.CameraController.OpenCamera();
+                }
+                catch (Exception ex)
+                {
+                    Toast.MakeText(this, string.Format("Camera exception: {0}", ex.Message), ToastLength.Short).Show();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Activity is started.
+        /// </summary>
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            OpenCamera();
+        }
+
+        /// <summary>
+        /// Activity is stoped.
+        /// </summary>
+        protected override void OnStop()
+        {
+            base.OnStop();
+
+            if (_barcodeScannerFragment != null)
+            {
+                // close camera
+                _barcodeScannerFragment.CameraController.CloseCamera();
+            }
+        }
+
+        /// <summary>
+        /// Activity is resumed.
+        /// </summary>
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            // if intent is not empty
+            if (Intent != null)
+            {
+                // get the intent action
+                string action = Intent.Action;
+                // get the intent data
+                string dataString = Intent.DataString;
+
+                // if action is scan action or view action
+                if (action == Intents.Scan.ACTION || action == Intent.ActionView)
+                {
+                    // specify that application is executed from another application
+                    _intentSource = Intents.IntentSource.NAITIVE_APP_INTENT;
+
+                    // show the About dialog
+                    ShowAboutDialog();
+                }
+            }
+        }
+
+        #endregion
+
+
+        #region INTERNAL
 
         /// <summary>
         /// Switches from <paramref name="lastAttachedFragment"/> to the <see cref="BarcodeScannerFragment"/> instance.
@@ -323,9 +451,9 @@ namespace BarcodeScannerDemo
             Window.ClearFlags(WindowManagerFlags.KeepScreenOn);
 
             // show action bar
-            ActionBar.Show();
+            SupportActionBar.Show();
             // set action bar title
-            ActionBar.SetTitle(Resource.String.history_title);
+            SupportActionBar.SetTitle(Resource.String.history_title);
 
             // create a new transaction
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
@@ -357,9 +485,9 @@ namespace BarcodeScannerDemo
             Window.ClearFlags(WindowManagerFlags.KeepScreenOn);
 
             // show action bar
-            ActionBar.Show();
+            SupportActionBar.Show();
             // set action bar title
-            ActionBar.SetTitle(Resource.String.settings_title);
+            SupportActionBar.SetTitle(Resource.String.settings_title);
 
             // create a new transaction
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
@@ -386,21 +514,6 @@ namespace BarcodeScannerDemo
             transaction.Commit();
         }
 
-        /// <summary>
-        /// Sets default window settings.
-        /// </summary>
-        private void SetDefaultWindowSettings()
-        {
-            // hide action bar
-            ActionBar.Hide();
-            // add "keep screen on" window flag
-            Window.AddFlags(WindowManagerFlags.KeepScreenOn);
-        }
-
-        #endregion
-
-
-        #region Dialog
 
         /// <summary>
         /// Returns a string with extended barcode info.
@@ -598,12 +711,12 @@ namespace BarcodeScannerDemo
         /// </summary>
         /// <param name="title">A dialog title.</param>
         /// <param name="value">A dialog value.</param>
-        /// <param name="canCopy">Indicates, whether "Copy value" is activated.</param>
+        /// <param name="canCopy">Indicates that "Copy value" is activated.</param>
         /// <param name="valueToCopy">Value to copy by button.</param>
         internal void ShowInfoDialog(string title, string value, bool canCopy, string valueToCopy)
         {
             // dialog builder
-            using (AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this))
+            using (Android.Support.V7.App.AlertDialog.Builder dialogBuilder = new Android.Support.V7.App.AlertDialog.Builder(new ContextThemeWrapper(this, Resource.Style.AlertDialogTheme)))
             {
                 // create button
                 dialogBuilder.SetPositiveButton(Resources.GetString(Resource.String.ok_button), (EventHandler<DialogClickEventArgs>)null);
@@ -653,6 +766,41 @@ namespace BarcodeScannerDemo
         }
 
         /// <summary>
+        /// Shows the About dialog.
+        /// </summary>
+        internal void ShowAboutDialog()
+        {
+            // get application name
+            string applicationName = Resources.GetString(Resource.String.app_name);
+
+            // get application version
+            string applicationVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+            // get about message template
+            string aboutMessageTemplate = Resources.GetString(Resource.String.about_message);
+
+            // show dialog about barcode scanner demo
+            ShowInfoDialog(applicationName, string.Format(aboutMessageTemplate, applicationVersion));
+        }
+
+        #endregion
+
+
+        #region PRIVATE
+
+        /// <summary>
+        /// Sets default window settings.
+        /// </summary>
+        private void SetDefaultWindowSettings()
+        {
+            // hide action bar
+            SupportActionBar.Hide();
+            // add "keep screen on" window flag
+            Window.AddFlags(WindowManagerFlags.KeepScreenOn);
+        }
+
+
+        /// <summary>
         /// Copies the barcode value.
         /// </summary>
         private void NeutralButton_Click(object sender, EventArgs e)
@@ -682,10 +830,8 @@ namespace BarcodeScannerDemo
             _infoDialogValueToCopy = null;
         }
 
-        #endregion
 
-
-        #region Unhandled exception
+        #region Unhandled exceptions
 
         /// <summary>
         /// Handles an Unhandled exception, which occured when managed exception was translated into an Android throwable.
@@ -707,11 +853,11 @@ namespace BarcodeScannerDemo
         /// Saves log file with unhandled exception info.s
         /// </summary>
         /// <param name="exception">An exception.</param>
-        internal void LogUnhandledException(Exception exception)
+        private void LogUnhandledException(Exception exception)
         {
             string errorMessage = string.Format("Time: {0}\r\nError: UnhandledExceptionMessage\r\n{1}\r\nStackTrace: {2}",
                 DateTime.Now, exception.Message, exception.StackTrace);
-           
+
             try
             {
                 // copy to clipboard if possible
@@ -727,6 +873,8 @@ namespace BarcodeScannerDemo
                 Toast.MakeText(Application.ApplicationContext, string.Format("Logging Exception {0}", e.Message), ToastLength.Short).Show();
             }
         }
+
+        #endregion
 
         #endregion
 

@@ -4,6 +4,7 @@ using Android.Hardware;
 using Android.Media;
 using Android.OS;
 using Android.Preferences;
+using Android.Runtime;
 using Android.Text.Method;
 using Android.Views;
 using Android.Widget;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 using Vintasoft.XamarinBarcode;
 using Vintasoft.XamarinBarcode.BarcodeInfo;
 using Vintasoft.XamarinBarcode.SymbologySubsets;
+using Vintasoft.XamarinBarcode.SymbologySubsets.AAMVA;
 using Vintasoft.XamarinBarcode.SymbologySubsets.GS1;
 using Vintasoft.XamarinBarcode.SymbologySubsets.RoyalMailMailmark;
 using Vintasoft.XamarinBarcode.SymbologySubsets.XFACompressed;
@@ -95,6 +97,11 @@ namespace BarcodeScannerDemo
         /// Indicates whether scanning is in progress.
         /// </summary>
         bool _frameScanning = false;
+
+        /// <summary>
+        /// Determines that "Vibrate" permission is granted.
+        /// </summary>
+        bool _isVibratePermissionGranted = false;
 
 
         #region Help Info
@@ -261,7 +268,7 @@ namespace BarcodeScannerDemo
         bool _vibration = false;
 
         /// <summary>
-        /// Determines whether barcode value should be copyed to the clipboard.
+        /// Determines whether barcode value should be copied to the clipboard.
         /// </summary>
         bool _copyToClipboard = false;
 
@@ -280,6 +287,11 @@ namespace BarcodeScannerDemo
         /// </summary>
         string _textEncodingName = "-1";
 
+        /// <summary>
+        /// Determines whether image should be flipped before scan.
+        /// </summary>
+        bool _flipImage = false;
+
         #endregion
 
         #endregion
@@ -291,10 +303,32 @@ namespace BarcodeScannerDemo
         /// <summary>
         /// Initializes a new instance of <see cref="BarcodeScannerFragment"/> class.
         /// </summary>
+        public BarcodeScannerFragment()
+            : base()
+        {
+            _cameraController = new CameraController(this, false);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="BarcodeScannerFragment"/> class.
+        /// </summary>
+        protected BarcodeScannerFragment(IntPtr javaReference, JniHandleOwnership transfer)
+            : base(javaReference, transfer)
+        {
+            _cameraController = new CameraController(this, false);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="BarcodeScannerFragment"/> class.
+        /// </summary>
         /// <param name="recognizedBarcodes">A reference to the recognized barcode list.</param>
-        internal BarcodeScannerFragment(List<IBarcodeInfo> recognizedBarcodes)
+        /// <param name="isFlashlightPermissionGranted">Determines that "Flashlight" permission is granted.</param>
+        /// <param name="isVibratePermissionGranted">Determines that "Vibrate" permission is granted.</param>
+        internal BarcodeScannerFragment(List<IBarcodeInfo> recognizedBarcodes, bool isFlashlightPermissionGranted, bool isVibratePermissionGranted)
         {
             _recognizedBarcodes = recognizedBarcodes;
+            _isVibratePermissionGranted = isVibratePermissionGranted;
+            _cameraController = new CameraController(this, isFlashlightPermissionGranted);
         }
 
         #endregion
@@ -363,7 +397,6 @@ namespace BarcodeScannerDemo
             _barcodeScanner = CreateCameraBarcodeScanner();
 
             // create camera controller
-            _cameraController = new CameraController(this);
             _cameraController.PreviewSurfaceParamsIsChanged += CameraController_PreviewSurfaceParamsIsChanged;
             // subcribe to the barcode scanner events
             _barcodeScanner.FrameScanFinished += BarcodeScanner_FrameScanFinished;
@@ -538,7 +571,15 @@ namespace BarcodeScannerDemo
         {
             base.OnResume();
 
-            bool isScanShouldBeStarting = SetSettings();
+            bool isScanShouldBeStarting = false;
+            try
+            {
+                isScanShouldBeStarting = SetSettings();
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(Activity, string.Format("Set settings error: {0}", ex.Message), ToastLength.Short).Show();
+            }
             // if scan should be starting
             if (isScanShouldBeStarting)
             {
@@ -644,6 +685,10 @@ namespace BarcodeScannerDemo
         {
             try
             {
+                // flip image on X axis, if need
+                if (_flipImage)
+                    image.FlipX();
+
                 // scan image
                 _barcodeScanner.ScanFrame(image);
             }
@@ -720,9 +765,8 @@ namespace BarcodeScannerDemo
         /// </summary>
         private void AboutButton_Click(object sender, EventArgs e)
         {
-            ((MainActivity)Activity).ShowInfoDialog(
-                Resources.GetString(Resource.String.app_name),
-                string.Format(Resources.GetString(Resource.String.about_message), System.Reflection.Assembly.GetExecutingAssembly().GetName().Version));
+            // show the About dialog
+            ((MainActivity)Activity).ShowAboutDialog();
         }
 
         /// <summary>
@@ -928,6 +972,8 @@ namespace BarcodeScannerDemo
 
             _barcodeScanner.RecognitionMode = GetRecognitionModeFormString(preferences.GetString("list_recognition_mode", "adaptive"));
             _barcodeScanner.ScannerSettings.InvertImageColors = preferences.GetBoolean("checkbox_invert_image", false);
+            _flipImage = preferences.GetBoolean("checkbox_flip_image", false);
+            _barcodeScannerOverlay.IsImageFlipped = _flipImage;
             ReconstructStructuredAppendBarcodes = preferences.GetBoolean("checkbox_reconstruct_structured_append_barcodes", true);
             _textEncodingName = preferences.GetString("list_encodings", "-1");
             if (_textEncodingName == "-1")
@@ -977,6 +1023,7 @@ namespace BarcodeScannerDemo
             {
                 barcodeTypes |= BarcodeType.PDF417 | BarcodeType.PDF417Compact;
                 barcodeSubsets.Add(new XFACompressedPDF417BarcodeSymbology());
+                barcodeSubsets.Add(new AamvaBarcodeSymbology());
             }
             if (preferences.GetBoolean("checkbox_2D_barcodes_PDF417Compact", false))
                 barcodeTypes |= BarcodeType.PDF417Compact;
@@ -1318,16 +1365,20 @@ namespace BarcodeScannerDemo
                     }
                 }
 
-                // if vibration should be played
-                if (_vibration && _vibrator != null)
+                // if "Vibrate" permission is granted
+                if (_isVibratePermissionGranted)
                 {
-                    try
+                    // if vibration should be played
+                    if (_vibration && _vibrator != null)
                     {
-                        _vibrator.Vibrate(VIBRATE_TIME);
-                    }
-                    catch (Exception ex)
-                    {
-                        Toast.MakeText(Activity, string.Format("Vibrator {0}", ex.Message), ToastLength.Short).Show();
+                        try
+                        {
+                            _vibrator.Vibrate(VIBRATE_TIME);
+                        }
+                        catch (Exception ex)
+                        {
+                            Toast.MakeText(Activity, string.Format("Vibrator {0}", ex.Message), ToastLength.Short).Show();
+                        }
                     }
                 }
 
@@ -1504,7 +1555,8 @@ namespace BarcodeScannerDemo
             {
                 // if value items is not empty
                 // and first value item is structed append character
-                if (barcode.ValueItems != null && barcode.ValueItems[0] is StructuredAppendCharacter)
+                ValueItemBase[] valueItems = barcode.ValueItems;
+                if (valueItems != null && valueItems.Length > 1 && valueItems[0] is StructuredAppendCharacter)
                 {
                     // indicate that barcode information shouldn't be shown
                     needShowInfo = false;
@@ -1558,7 +1610,7 @@ namespace BarcodeScannerDemo
                     // get clipboard
                     ClipboardManager clipboard = (ClipboardManager)Activity.GetSystemService(Android.Content.Context.ClipboardService);
                     // create data for clipboard
-                    ClipData clip = ClipData.NewPlainText("barcodeValue", info.Value);
+                    ClipData clip = ClipData.NewPlainText("barcodeValue", text);
                     // put data to clipboard
                     clipboard.PrimaryClip = clip;
                 }

@@ -5,14 +5,15 @@
   <string name="settings_title">Настройки</string>
   <string name="ok_button">Ок</string>
   <string name="copy_value_button">Копировать значение</string>
-  <string name="vintasoft_barcodes_url">http://www.vintasoft.com/rus/vsbarcode-dotnet-index.html#BarcodeScannerDemo</string>
+  <string name="vintasoft_barcodes_url">https://www.vintasoft.com/rus/vsbarcode-dotnet-index.html#BarcodeScannerDemo</string>
   <!--Titles and buttons-->
 
 
 
   <!-- Messages -->
-  <string name="about_message">Данное демо-приложение показывает, как распознать штрих-коды, используя VintaSoft Barcode .NET SDK.\nhttp://www.vintasoft.com/rus/vsbarcode-dotnet-index.html#BarcodeScannerDemo\n\nВерсия {0}</string>
+  <string name="about_message">Данное демо-приложение показывает, как распознать штрих-коды, используя VintaSoft Barcode .NET SDK.\nhttps://www.vintasoft.com/rus/vsbarcode-dotnet-index.html#BarcodeScannerDemo\n\nВерсия {0}</string>
   <string name="language_change_message">Для смены языка вам необходимо перезапустить приложение.</string>
+  <string name="default_settings_setted_message">Установлены настройки по умолчанию.</string>
 
   <string name="metadata_message">Метаданные:</string>
   <string name="matrix_size_message">Размер матрицы: {0} x {1}</string>
@@ -91,6 +92,9 @@
 
   <string name="title_checkbox_invert_image">Инвертировать изображение</string>
   <string name="summary_checkbox_invert_image">Инвертировать цвета изображений до распознавания штрих-кода (для сканирования белых штрих-кодов на черном фоне)</string>
+
+  <string name="title_checkbox_flip_image">Отразить изображение</string>
+  <string name="summary_checkbox_flip_image">Отразить изображение до распознавания штрих-кода (для сканирования с фронтальной камеры)</string>
 
   <string name="title_checkbox_reconstruct_structured_append_barcodes">Собирать составные штрих-коды</string>
   <string name="summary_checkbox_reconstruct_structured_append_barcodes">Собирать составные штрих-коды в один штрих-код, используя структурированное соединение</string>

@@ -1,12 +1,12 @@
 ﻿using Android.Text.Util;
 using Android.Util;
 
-using System;
 using System.Collections.Generic;
 using System.Text;
 
 using Vintasoft.XamarinBarcode;
 using Vintasoft.XamarinBarcode.BarcodeInfo;
+using Vintasoft.XamarinBarcode.SymbologySubsets.AAMVA;
 
 namespace BarcodeScannerDemo
 {
@@ -79,6 +79,8 @@ namespace BarcodeScannerDemo
 
         #region Methods
 
+        #region INTERNAL
+
         #region TextEncoding
 
         /// <summary>
@@ -91,49 +93,34 @@ namespace BarcodeScannerDemo
         /// </returns>
         internal static string GetEncodedBarcodeValue(IBarcodeInfo info, string textEncodingName)
         {
+            if (info is AamvaBarcodeInfo)
+            {
+                AamvaBarcodeValue aamvaValue = ((AamvaBarcodeInfo)info).AamvaValue;
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine(string.Format("Issuer identification number: {0}", aamvaValue.Header.IssuerIdentificationNumber));
+                foreach (AamvaSubfile subfile in aamvaValue.Subfiles)
+                {
+                    foreach (AamvaDataElement dataElement in subfile.DataElements)
+                    {
+                        if (dataElement.Identifier.VersionLevel != AamvaVersionLevel.Undefined)
+                            sb.AppendLine(string.Format("{0}={1} ({2})", dataElement.Identifier.ID, dataElement.Value, dataElement.Identifier.Description));
+                        else
+                            sb.AppendLine(string.Format("{0}={1}", dataElement.Identifier.ID, dataElement.Value));
+                    }
+                }
+                return sb.ToString();
+            }
+
             if (textEncodingName == "-1")
-                return info.Value;
+                return info.Value;           
 
             if (info is BarcodeSubsetInfo ||
-                info.BarcodeType == BarcodeType.Mailmark4StateC || 
+                info.BarcodeType == BarcodeType.Mailmark4StateC ||
                 info.BarcodeType == BarcodeType.Mailmark4StateL)
                 return info.Value;
 
             Encoding newEncoding = AvailableEncodings[textEncodingName].GetEncoding();
             return GetEncodedString(info.Value, newEncoding);
-        }
-
-        /// <summary>
-        /// Returns string encoded usig specified text encoding.
-        /// </summary>
-        /// <param name="value">A value to encode.</param>
-        /// <param name="textEncoding">Text encoding.</param>
-        /// <returns>
-        /// An encoded string.
-        /// </returns>
-        private static string GetEncodedString(string value, Encoding textEncoding)
-        {
-            bool singleByteEncoding = true;
-            for (int i = 0; i < value.Length; i++)
-                if ((int)value[i] > 255)
-                {
-                    singleByteEncoding = false;
-                    break;
-                }
-
-            byte[] bytes;
-            if (singleByteEncoding)
-            {
-                bytes = new byte[value.Length];
-                for (int i = 0; i < value.Length; i++)
-                    bytes[i] = (byte)value[i];
-            }
-            else
-            {
-                bytes = Encoding.Default.GetBytes(value);
-            }
-
-            return textEncoding.GetString(bytes);
         }
 
         #endregion
@@ -157,7 +144,7 @@ namespace BarcodeScannerDemo
 
         /// <summary>
         /// Returns a string representation of <see cref="BarcodeType"/> enum value.
-        /// <summary>
+        /// </summary>
         /// <param name="item">An enum value.</param>
         /// <returns>A string representation of enum value.</returns>
         internal static string BarcodeTypeToString(BarcodeType item)
@@ -326,7 +313,7 @@ namespace BarcodeScannerDemo
 
         /// <summary>
         /// Returns a string representation of <see cref="AztecSymbolType"/> enum value.
-        /// <summary>
+        /// </summary>
         /// <param name="item">An enum value.</param>
         /// <returns>A string representation of enum value.</returns>
         internal static string AztecSymbolTypeToString(AztecSymbolType item)
@@ -351,7 +338,7 @@ namespace BarcodeScannerDemo
 
         /// <summary>
         /// Returns a string representation of <see cref="DataMatrixSymbolType"/> enum value.
-        /// <summary>
+        /// </summary>
         /// <param name="item">An enum value.</param>
         /// <returns>A string representation of enum value.</returns>
         internal static string DataMatrixSymbolTypeToString(DataMatrixSymbolType item)
@@ -457,7 +444,7 @@ namespace BarcodeScannerDemo
 
         /// <summary>
         /// Returns a string representation of <see cref="HanXinCodeErrorCorrectionLevel"/> enum value.
-        /// <summary>
+        /// </summary>
         /// <param name="item">An enum value.</param>
         /// <returns>A string representation of enum value.</returns>
         internal static string HanXinCodeErrorCorrectionLevelToString(HanXinCodeErrorCorrectionLevel item)
@@ -482,7 +469,7 @@ namespace BarcodeScannerDemo
 
         /// <summary>
         /// Returns a string representation of <see cref="HanXinCodeSymbolVersion"/> enum value.
-        /// <summary>
+        /// </summary>
         /// <param name="item">An enum value.</param>
         /// <returns>A string representation of enum value.</returns>
         internal static string HanXinCodeSymbolVersionToString(HanXinCodeSymbolVersion item)
@@ -750,7 +737,7 @@ namespace BarcodeScannerDemo
 
         /// <summary>
         /// Returns a string representation of <see cref="MaxiCodeEncodingMode"/> enum value.
-        /// <summary>
+        /// </summary>
         /// <param name="item">An enum value.</param>
         /// <returns>A string representation of enum value.</returns>
         internal static string MaxiCodeEncodingModeToString(MaxiCodeEncodingMode item)
@@ -775,10 +762,10 @@ namespace BarcodeScannerDemo
             }
             return null;
         }
-               
+
         /// <summary>
         /// Returns a string representation of <see cref="MicroPDF417SymbolType"/> enum value.
-        /// <summary>
+        /// </summary>
         /// <param name="item">An enum value.</param>
         /// <returns>A string representation of enum value.</returns>
         internal static string MicroPDF417SymbolTypeToString(MicroPDF417SymbolType item)
@@ -896,7 +883,7 @@ namespace BarcodeScannerDemo
 
         /// <summary>
         /// Returns a string representation of <see cref="PDF417ErrorCorrectionLevel"/> enum value.
-        /// <summary>
+        /// </summary>
         /// <param name="item">An enum value.</param>
         /// <returns>A string representation of enum value.</returns>
         internal static string PDF417ErrorCorrectionLevelToString(PDF417ErrorCorrectionLevel item)
@@ -939,7 +926,7 @@ namespace BarcodeScannerDemo
 
         /// <summary>
         /// Returns a string representation of <see cref="QRErrorCorrectionLevel"/> enum value.
-        /// <summary>
+        /// </summary>
         /// <param name="item">An enum value.</param>
         /// <returns>A string representation of enum value.</returns>
         internal static string QRErrorCorrectionLevelToString(QRErrorCorrectionLevel item)
@@ -964,7 +951,7 @@ namespace BarcodeScannerDemo
 
         /// <summary>
         /// Returns a string representation of <see cref="QRSymbolVersion"/> enum value.
-        /// <summary>
+        /// </summary>
         /// <param name="item">An enum value.</param>
         /// <returns>A string representation of enum value.</returns>
         internal static string QRSymbolVersionToString(QRSymbolVersion item)
@@ -1150,6 +1137,46 @@ namespace BarcodeScannerDemo
 
             }
             return null;
+        }
+
+        #endregion
+
+        #endregion
+
+
+        #region PRIVATE
+
+        /// <summary>
+        /// Returns string encoded usig specified text encoding.
+        /// </summary>
+        /// <param name="value">A value to encode.</param>
+        /// <param name="textEncoding">Text encoding.</param>
+        /// <returns>
+        /// An encoded string.
+        /// </returns>
+        private static string GetEncodedString(string value, Encoding textEncoding)
+        {
+            bool singleByteEncoding = true;
+            for (int i = 0; i < value.Length; i++)
+                if ((int)value[i] > 255)
+                {
+                    singleByteEncoding = false;
+                    break;
+                }
+
+            byte[] bytes;
+            if (singleByteEncoding)
+            {
+                bytes = new byte[value.Length];
+                for (int i = 0; i < value.Length; i++)
+                    bytes[i] = (byte)value[i];
+            }
+            else
+            {
+                bytes = Encoding.Default.GetBytes(value);
+            }
+
+            return textEncoding.GetString(bytes);
         }
 
         #endregion

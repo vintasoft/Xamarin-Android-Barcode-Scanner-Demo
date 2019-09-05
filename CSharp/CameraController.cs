@@ -41,6 +41,11 @@ namespace BarcodeScannerDemo
         /// </summary>
         Camera.IPreviewCallback _previewCallbackDelegate;
 
+        /// <summary>
+        /// Determines that "Flashlight" permission is granted.
+        /// </summary>
+        bool _isFlashlightPermissionGranted = false;
+
         #endregion
 
 
@@ -51,9 +56,11 @@ namespace BarcodeScannerDemo
         /// Initializes a new instance of <see cref="CameraController"/> class.
         /// </summary>
         /// <param name="previewCallback">A preview callback method.</param>
-        internal CameraController(Camera.IPreviewCallback previewCallback)
+        /// <param name="isFlashlightPermissionGranted">Determines that "Flashlight" permission is granted.</param>
+        internal CameraController(Camera.IPreviewCallback previewCallback, bool isFlashlightPermissionGranted)
         {
             _previewCallbackDelegate = previewCallback;
+            _isFlashlightPermissionGranted = isFlashlightPermissionGranted;
         }
 
         #endregion
