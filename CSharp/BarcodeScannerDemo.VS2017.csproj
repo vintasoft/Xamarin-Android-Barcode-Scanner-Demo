@@ -59,7 +59,7 @@
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
     <Reference Include="Vintasoft.XamarinBarcode.Android">
-      <HintPath>packages\Vintasoft.XamarinBarcode.Android.12.0.14.1\lib\MonoAndroid403\Vintasoft.XamarinBarcode.Android.dll</HintPath>
+      <HintPath>packages\Vintasoft.XamarinBarcode.Android.12.0.15.1\lib\MonoAndroid403\Vintasoft.XamarinBarcode.Android.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Android.Arch.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>.\packages\Xamarin.Android.Arch.Core.Common.1.1.1.1\lib\monoandroid90\Xamarin.Android.Arch.Core.Common.dll</HintPath>
