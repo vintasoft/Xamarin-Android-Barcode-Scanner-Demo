@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("VintaSoft Ltd.")]
 [assembly: AssemblyProduct("Vintasoft.BarcodeScannerDemo.Xamarin.Android")]
-[assembly: AssemblyCopyright("Copyright\x00a9 2019 VintaSoft, Ltd. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright\x00a9 2020 VintaSoft, Ltd. All rights reserved.")]
 [assembly: AssemblyTrademark("VintaSoft\x00ae is registered trademark of VintaSoft Ltd.")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
@@ -25,8 +25,8 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.3.1")]
-[assembly: AssemblyFileVersion("1.0.3.1")]
+[assembly: AssemblyVersion("12.0.15.1")]
+[assembly: AssemblyFileVersion("12.0.15.1")]
 
 [assembly: UsesPermission(Android.Manifest.Permission.Camera)]
 [assembly: UsesPermission(Android.Manifest.Permission.Flashlight)]
