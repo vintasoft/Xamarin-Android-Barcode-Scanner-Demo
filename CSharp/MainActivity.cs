@@ -117,6 +117,7 @@ namespace BarcodeScannerDemo
         public MainActivity()
             : base()
         {
+            VintasoftBarcode.VintasoftXamarinBarcodeLicense.Register();
         }
 
         #endregion

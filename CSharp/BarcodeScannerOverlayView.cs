@@ -286,7 +286,7 @@ namespace BarcodeScannerDemo
             {
                 _paint.Alpha = 255;
                 AndroidBitmapSource androidBitmap = new AndroidBitmapSource((GrayscaleImageSource)recognizedBarcodeImage);
-                using (Bitmap bitmap = androidBitmap.GetBitmapAndDispose())
+                using (Android.Graphics.Bitmap bitmap = androidBitmap.GetBitmapAndDispose())
                 {
                     // draw recognized barcode image 
                     canvas.DrawBitmap(bitmap, null, new RectF(0, 0, recognizedBarcodeImage.Width, recognizedBarcodeImage.Height), _paint);
