@@ -27,7 +27,7 @@ namespace BarcodeScannerDemo
     /// <summary>
     /// The barcode scanner fragment, that contains main user interface.
     /// </summary>
-    public class BarcodeScannerFragment : Fragment, Camera.IPreviewCallback
+    public class BarcodeScannerFragment : Android.Support.V4.App.Fragment, Camera.IPreviewCallback
     {
 
         #region Constants
@@ -57,6 +57,11 @@ namespace BarcodeScannerDemo
 
 
         #region Fields
+
+        /// <summary>
+        /// Main activity.
+        /// </summary>
+        MainActivity _mainActivity;
 
         /// <summary>
         /// The barcode scanner surface view.
@@ -324,8 +329,9 @@ namespace BarcodeScannerDemo
         /// <param name="recognizedBarcodes">A reference to the recognized barcode list.</param>
         /// <param name="isFlashlightPermissionGranted">Determines that "Flashlight" permission is granted.</param>
         /// <param name="isVibratePermissionGranted">Determines that "Vibrate" permission is granted.</param>
-        internal BarcodeScannerFragment(List<IBarcodeInfo> recognizedBarcodes, bool isFlashlightPermissionGranted, bool isVibratePermissionGranted)
+        internal BarcodeScannerFragment(MainActivity mainActivity, List<IBarcodeInfo> recognizedBarcodes, bool isFlashlightPermissionGranted, bool isVibratePermissionGranted)
         {
+            _mainActivity = mainActivity;
             _recognizedBarcodes = recognizedBarcodes;
             _isVibratePermissionGranted = isVibratePermissionGranted;
             _cameraController = new CameraController(this, isFlashlightPermissionGranted);
@@ -401,11 +407,11 @@ namespace BarcodeScannerDemo
             // subcribe to the barcode scanner events
             _barcodeScanner.FrameScanFinished += BarcodeScanner_FrameScanFinished;
             // create the barcode scanner overlay view
-            _barcodeScannerOverlay = new BarcodeScannerOverlayView(Activity, _cameraController, _barcodeScanner);
+            _barcodeScannerOverlay = new BarcodeScannerOverlayView(_mainActivity, _cameraController, _barcodeScanner);
             // set the identifier for the barcode scanner overlay view
             _barcodeScannerOverlay.Id = 123;
             // create the barcode scanner surface view
-            _barcodeScannerSurfaceView = new BarcodeScannerSurfaceView(Activity, _cameraController, _barcodeScanner, _barcodeScannerOverlay);
+            _barcodeScannerSurfaceView = new BarcodeScannerSurfaceView(_mainActivity, _cameraController, _barcodeScanner, _barcodeScannerOverlay);
             // set the identifier for the barcode scanner surface view
             _barcodeScannerSurfaceView.Id = 124;
 
@@ -414,23 +420,23 @@ namespace BarcodeScannerDemo
             // get sound
             try
             {
-                _mediaPlayer = MediaPlayer.Create(Activity, Resource.Raw.barcode_recognized_sound);
+                _mediaPlayer = MediaPlayer.Create(_mainActivity, Resource.Raw.barcode_recognized_sound);
             }
             catch (Exception ex)
             {
                 _mediaPlayer = null;
-                Toast.MakeText(Activity, string.Format("Media player {0}", ex.Message), ToastLength.Short).Show();
+                Toast.MakeText(_mainActivity, string.Format("Media player {0}", ex.Message), ToastLength.Short).Show();
             }
 
             // get vibrator
             try
             {
-                _vibrator = (Vibrator)Activity.GetSystemService(Android.Content.Context.VibratorService);
+                _vibrator = (Vibrator)_mainActivity.GetSystemService(Android.Content.Context.VibratorService);
             }
             catch (Exception ex)
             {
                 _vibrator = null;
-                Toast.MakeText(Activity, string.Format("Vibrator {0}", ex.Message), ToastLength.Short).Show();
+                Toast.MakeText(_mainActivity, string.Format("Vibrator {0}", ex.Message), ToastLength.Short).Show();
             }
         }
 
@@ -578,7 +584,7 @@ namespace BarcodeScannerDemo
             }
             catch (Exception ex)
             {
-                Toast.MakeText(Activity, string.Format("Set settings error: {0}", ex.Message), ToastLength.Short).Show();
+                Toast.MakeText(_mainActivity, string.Format("Set settings error: {0}", ex.Message), ToastLength.Short).Show();
             }
             // if scan should be starting
             if (isScanShouldBeStarting)
@@ -670,7 +676,7 @@ namespace BarcodeScannerDemo
             }
             catch (Exception ex)
             {
-                Toast.MakeText(Activity, string.Format("OnPreviewFrame: {0}", ex.Message), ToastLength.Long).Show();
+                Toast.MakeText(_mainActivity, string.Format("OnPreviewFrame: {0}", ex.Message), ToastLength.Long).Show();
                 camera.StopPreview();
             }
         }
@@ -694,7 +700,7 @@ namespace BarcodeScannerDemo
             }
             catch (Exception ex)
             {
-                Toast.MakeText(Activity, string.Format("Scan frame: {0}", ex.Message), ToastLength.Long).Show();
+                Toast.MakeText(_mainActivity, string.Format("Scan frame: {0}", ex.Message), ToastLength.Long).Show();
                 // stop camera preview
                 camera.StopPreview();
             }
@@ -766,7 +772,7 @@ namespace BarcodeScannerDemo
         private void AboutButton_Click(object sender, EventArgs e)
         {
             // show the About dialog
-            ((MainActivity)Activity).ShowAboutDialog();
+            _mainActivity.ShowAboutDialog();
         }
 
         /// <summary>
@@ -839,7 +845,7 @@ namespace BarcodeScannerDemo
         /// </summary>
         private void SettingsButton_Click(object sender, EventArgs e)
         {
-            ((MainActivity)Activity).SwitchToSettings(this, _cameraController);
+            _mainActivity.SwitchToSettings(this, _cameraController);
         }
 
         /// <summary>
@@ -870,11 +876,11 @@ namespace BarcodeScannerDemo
                     if (_barcodeScannerOverlay.RecognizedBarcode != null)
                     {
                         // get extended information about barcode
-                        string info = ((MainActivity)Activity).GetExtendedBarcodeInfoString(_barcodeScannerOverlay.RecognizedBarcode, _textEncodingName);
+                        string info = _mainActivity.GetExtendedBarcodeInfoString(_barcodeScannerOverlay.RecognizedBarcode, _textEncodingName);
                         // get barcode type
                         string barcodeType = Utils.GetBarcodeTypeString(_barcodeScannerOverlay.RecognizedBarcode);
                         // show dialog
-                        ((MainActivity)Activity).ShowInfoDialog(barcodeType, info, true, _barcodeScannerOverlay.RecognizedBarcode.Value);
+                        _mainActivity.ShowInfoDialog(barcodeType, info, true, _barcodeScannerOverlay.RecognizedBarcode.Value);
                     }
 
                     // if autofocus on touch is enabled
@@ -903,7 +909,7 @@ namespace BarcodeScannerDemo
         /// </summary>
         private void ShowHistory()
         {
-            ((MainActivity)Activity).SwitchToHistory(this);
+            _mainActivity.SwitchToHistory(this);
         }
 
         /// <summary>
@@ -939,7 +945,7 @@ namespace BarcodeScannerDemo
         private bool SetSettings()
         {
             // get preferences
-            ISharedPreferences preferences = PreferenceManager.GetDefaultSharedPreferences(Activity);
+            ISharedPreferences preferences = PreferenceManager.GetDefaultSharedPreferences(_mainActivity);
 
             bool isScanShouldBeStarting = false;
 
@@ -985,7 +991,7 @@ namespace BarcodeScannerDemo
                 }
                 catch (Exception ex)
                 {
-                    Toast.MakeText(Activity, string.Format("TextEncoding = Unicode: {0}", ex.Message), ToastLength.Short).Show();
+                    Toast.MakeText(_mainActivity, string.Format("TextEncoding = Unicode: {0}", ex.Message), ToastLength.Short).Show();
                 }
             }
             else
@@ -1276,7 +1282,7 @@ namespace BarcodeScannerDemo
         /// </summary>
         private void BarcodeScanner_FrameScanFinished(object sender, FrameScanFinishedEventArgs e)
         {
-            Activity.RunOnUiThread(() =>
+            _mainActivity.RunOnUiThread(() =>
             {
                 OnFrameScanFinished(e);
             });
@@ -1361,7 +1367,7 @@ namespace BarcodeScannerDemo
                     }
                     catch (Exception ex)
                     {
-                        Toast.MakeText(Activity, string.Format("Media player {0}", ex.Message), ToastLength.Short).Show();
+                        Toast.MakeText(_mainActivity, string.Format("Media player {0}", ex.Message), ToastLength.Short).Show();
                     }
                 }
 
@@ -1373,11 +1379,11 @@ namespace BarcodeScannerDemo
                     {
                         try
                         {
-                            _vibrator.Vibrate(VIBRATE_TIME);
+                            _vibrator.Vibrate(VibrationEffect.CreateOneShot(VIBRATE_TIME, VibrationEffect.DefaultAmplitude));
                         }
                         catch (Exception ex)
                         {
-                            Toast.MakeText(Activity, string.Format("Vibrator {0}", ex.Message), ToastLength.Short).Show();
+                            Toast.MakeText(_mainActivity, string.Format("Vibrator {0}", ex.Message), ToastLength.Short).Show();
                         }
                     }
                 }
@@ -1424,7 +1430,7 @@ namespace BarcodeScannerDemo
                             // get barcode value
                             string text = info.Value;
                             // get clipboard
-                            ClipboardManager clipboard = (ClipboardManager)Activity.GetSystemService(Android.Content.Context.ClipboardService);
+                            ClipboardManager clipboard = (ClipboardManager)_mainActivity.GetSystemService(Android.Content.Context.ClipboardService);
                             // create data for clipboard
                             ClipData clip = ClipData.NewPlainText("barcodeValue", text);
                             // put data to clipboard
@@ -1441,19 +1447,19 @@ namespace BarcodeScannerDemo
                 _helpInfoTextView.Text = string.Format(_frameScanTimeMessage, scannerInfo, e.ScanTime.TotalMilliseconds);
 
                 // if activity was started from another application
-                if (((MainActivity)Activity).IntentSource == Intents.IntentSource.NAITIVE_APP_INTENT)
+                if (_mainActivity.IntentSource == Intents.IntentSource.NAITIVE_APP_INTENT)
                 {
                     // get first new recognized barcode
                     IBarcodeInfo barcode = newBarcodes[0];
-                    Intent intent = Activity.Intent;
+                    Intent intent = _mainActivity.Intent;
                     intent.AddFlags(ActivityFlags.ClearWhenTaskReset);
                     // return barcode value to the app
                     intent.PutExtra(Intents.Scan.RESULT, barcode.Value);
                     // return barcode type in string representation to the app
                     intent.PutExtra(Intents.Scan.RESULT_FORMAT, Utils.GetBarcodeTypeString(barcode));
-                    Activity.SetResult(Result.Ok, intent);
+                    _mainActivity.SetResult(Result.Ok, intent);
                     // finish barcode scanner activity
-                    Activity.Finish();
+                    _mainActivity.Finish();
                 }
 
                 // if recognized barcode is showing
@@ -1544,7 +1550,7 @@ namespace BarcodeScannerDemo
             // if there is no recognized barcode
             if (barcode == null)
                 return false;
-            
+
             // remove last shown barcode
             _newRecognizedBarcodes.Remove(barcode);
 
@@ -1594,10 +1600,10 @@ namespace BarcodeScannerDemo
                     // get barcode value
                     text = Utils.GetEncodedBarcodeValue(info, _textEncodingName);
                 }
-                catch (NotSupportedException ex)
+                catch (NotSupportedException)
                 {
                     Toast.MakeText(
-                        Activity,
+                        _mainActivity,
                         string.Format(Resources.GetString(Resource.String.unsupported_encoding_message), Utils.AvailableEncodings[_textEncodingName].Name),
                         ToastLength.Long).Show();
 
@@ -1608,7 +1614,7 @@ namespace BarcodeScannerDemo
                 if (_copyToClipboard)
                 {
                     // get clipboard
-                    ClipboardManager clipboard = (ClipboardManager)Activity.GetSystemService(Android.Content.Context.ClipboardService);
+                    ClipboardManager clipboard = (ClipboardManager)_mainActivity.GetSystemService(Android.Content.Context.ClipboardService);
                     // create data for clipboard
                     ClipData clip = ClipData.NewPlainText("barcodeValue", text);
                     // put data to clipboard

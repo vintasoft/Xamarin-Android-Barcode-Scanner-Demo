@@ -258,7 +258,7 @@ namespace BarcodeScannerDemo
 
             // modify canvas transformation
             canvas.Save();
-         
+
             canvas.Scale(scaleX, scaleY);
             _canvasTransform = canvas.Matrix;
 
@@ -432,12 +432,8 @@ namespace BarcodeScannerDemo
         /// </summary>
         private void OnFrameScanFinished(FrameScanFinishedEventArgs e)
         {
-            bool needInvalidate = _barcodes == null || _barcodes.Length > 0 || e.FoundBarcodes.Length > 0;
             _barcodes = e.FoundBarcodes;
-            if (needInvalidate)
-                Invalidate();
-            else
-                Invalidate(GetCrossRect());
+            Invalidate();
         }
 
 

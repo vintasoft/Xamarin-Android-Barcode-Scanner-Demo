@@ -12,15 +12,20 @@ namespace BarcodeScannerDemo
     /// <summary>
     /// The fragment that contains user interface for application settings.
     /// </summary>
-    public class SettingsFragment : PreferenceFragment, ISharedPreferencesOnSharedPreferenceChangeListener
+    public class SettingsFragment : Android.Support.V7.Preferences.PreferenceFragmentCompat, ISharedPreferencesOnSharedPreferenceChangeListener
     {
 
         #region Fields
 
         /// <summary>
+        /// Main activity.
+        /// </summary>
+        MainActivity _mainActivity;
+
+        /// <summary>
         /// The camera preview size list preference.
         /// </summary>
-        ListPreference _cameraPreviewSizesListPreference;
+        Android.Support.V7.Preferences.ListPreference _cameraPreviewSizesListPreference;
 
         /// <summary>
         /// Entries for the camera preview size list preference.
@@ -36,7 +41,7 @@ namespace BarcodeScannerDemo
         /// <summary>
         /// The list preference with available text encodings.
         /// </summary>
-        ListPreference _textEncodingListPreference;
+        Android.Support.V7.Preferences.ListPreference _textEncodingListPreference;
 
         /// <summary>
         /// Entries for the list preference with available text encodings.
@@ -53,6 +58,30 @@ namespace BarcodeScannerDemo
         /// Previous language value.
         /// </summary>
         string _previousLanguageValue = "";
+
+        #endregion
+
+
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="SettingsFragment"/> class.
+        /// </summary>
+        public SettingsFragment()
+            : base()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="SettingsFragment"/> class.
+        /// </summary>
+        /// <param name="mainActivity">Main activity.</param>
+        internal SettingsFragment(MainActivity mainActivity)
+            : base()
+        {
+            _mainActivity = mainActivity;
+        }
 
         #endregion
 
@@ -84,14 +113,8 @@ namespace BarcodeScannerDemo
 
         #region PUBLIC
 
-        /// <summary>
-        /// Called to do initial creation of a fragment.
-        /// </summary>
-        /// <param name="savedInstanceState">The saved instance state if the fragment is being re-created from a previous saved state.</param>
-        public override void OnCreate(Bundle savedInstanceState)
+        public override void OnCreatePreferences(Bundle savedInstanceState, string rootKey)
         {
-            base.OnCreate(savedInstanceState);
-
             AddPreferencesFromResource(Resource.Xml.settings_page);
 
             CreateCameraPreviewSizePreference();
@@ -114,31 +137,24 @@ namespace BarcodeScannerDemo
         /// </returns>
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            Context contextThemeWrapper = new ContextThemeWrapper(Activity, Resource.Style.SettingsDialogTheme);
-            LayoutInflater localInflater = inflater.CloneInContext(contextThemeWrapper);            
+            Context contextThemeWrapper = new ContextThemeWrapper(_mainActivity, Resource.Style.SettingsDialogTheme);
+            LayoutInflater localInflater = inflater.CloneInContext(contextThemeWrapper);
             return base.OnCreateView(localInflater, container, savedInstanceState);
         }
-        
 
         /// <summary>
         /// Preference is clicked.
         /// </summary>
-        /// <param name="preferenceScreen">The preference screen of <paramref name="preference"/>.</param>
         /// <param name="preference">The clicked preference.</param>
-        public override bool OnPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference)
-        {            
-            if (preference is PreferenceScreen)
-            {
-                ((PreferenceScreen)preference).Dialog.Window.AddFlags(Android.Views.WindowManagerFlags.Fullscreen);
-            }
-            
+        public override bool OnPreferenceTreeClick(Android.Support.V7.Preferences.Preference preference)
+        {
             // if "Reset settings" button is clicked
             if (preference.Key == "set_defaults_button")
             {
                 try
                 {
                     // get preferences
-                    ISharedPreferences preferences = PreferenceManager.GetDefaultSharedPreferences(Activity);
+                    ISharedPreferences preferences = Android.Support.V7.Preferences.PreferenceManager.GetDefaultSharedPreferences(_mainActivity);
                     // save the previous language value
                     _previousLanguageValue = preferences.GetString("list_languages", "auto");
                     // clear the preferences
@@ -148,13 +164,13 @@ namespace BarcodeScannerDemo
                 }
                 catch (System.Exception ex)
                 {
-                    Toast.MakeText(Activity, string.Format("Settings error: {0}", ex.Message), ToastLength.Short).Show();
+                    Toast.MakeText(_mainActivity, string.Format("Settings error: {0}", ex.Message), ToastLength.Short).Show();
                 }
 
-                Toast.MakeText(Activity, Resource.String.default_settings_setted_message, ToastLength.Short).Show();
+                Toast.MakeText(_mainActivity, Resource.String.default_settings_setted_message, ToastLength.Short).Show();
             }
 
-            return base.OnPreferenceTreeClick(preferenceScreen, preference);
+            return base.OnPreferenceTreeClick(preference);
         }
 
         /// <summary>
@@ -166,11 +182,11 @@ namespace BarcodeScannerDemo
 
             try
             {
-                PreferenceManager.GetDefaultSharedPreferences(Activity).RegisterOnSharedPreferenceChangeListener(this);
+                Android.Support.V7.Preferences.PreferenceManager.GetDefaultSharedPreferences(_mainActivity).RegisterOnSharedPreferenceChangeListener(this);
             }
             catch (System.Exception ex)
             {
-                Toast.MakeText(Activity, string.Format("Settings error: {0}", ex.Message), ToastLength.Short).Show();
+                Toast.MakeText(_mainActivity, string.Format("Settings error: {0}", ex.Message), ToastLength.Short).Show();
             }
         }
 
@@ -181,11 +197,11 @@ namespace BarcodeScannerDemo
         {
             try
             {
-                PreferenceManager.GetDefaultSharedPreferences(Activity).UnregisterOnSharedPreferenceChangeListener(this);
+                Android.Support.V7.Preferences.PreferenceManager.GetDefaultSharedPreferences(_mainActivity).UnregisterOnSharedPreferenceChangeListener(this);
             }
             catch (System.Exception ex)
             {
-                Toast.MakeText(Activity, string.Format("Settings error: {0}", ex.Message), ToastLength.Short).Show();
+                Toast.MakeText(_mainActivity, string.Format("Settings error: {0}", ex.Message), ToastLength.Short).Show();
             }
 
             base.OnPause();
@@ -209,7 +225,7 @@ namespace BarcodeScannerDemo
                     if (newLanguageValue != _previousLanguageValue)
                     {
                         // notify user that application must be restarted
-                        ((MainActivity)Activity).ShowInfoDialog(
+                        _mainActivity.ShowInfoDialog(
                             Resources.GetString(Resource.String.app_name),
                             Resources.GetString(Resource.String.language_change_message));
                         _previousLanguageValue = newLanguageValue;
@@ -218,7 +234,7 @@ namespace BarcodeScannerDemo
                 catch
                 {
                     // notify user that application must be restarted
-                    Toast.MakeText(Activity, Resource.String.language_change_message, ToastLength.Long).Show();
+                    Toast.MakeText(_mainActivity, Resource.String.language_change_message, ToastLength.Long).Show();
                 }
             }
         }
@@ -233,12 +249,12 @@ namespace BarcodeScannerDemo
         /// </summary>
         private void RefreshUI()
         {
-            PreferenceScreen.RemoveAll();
+            base.PreferenceScreen.RemoveAll();
 
             AddPreferencesFromResource(Resource.Xml.settings_page);
 
             // get the preference for camera preview sizes list
-            _cameraPreviewSizesListPreference = FindPreference("list_camera_preview_sizes") as ListPreference;
+            _cameraPreviewSizesListPreference = FindPreference("list_camera_preview_sizes") as Android.Support.V7.Preferences.ListPreference;
             // if camera preview size list preference is found
             if (_cameraPreviewSizesListPreference != null)
             {
@@ -250,7 +266,7 @@ namespace BarcodeScannerDemo
             }
 
             // get the preference for text encoding list
-            _textEncodingListPreference = FindPreference("list_encodings") as ListPreference;
+            _textEncodingListPreference = FindPreference("list_encodings") as Android.Support.V7.Preferences.ListPreference;
 
             // if text encoding list preference is found
             if (_textEncodingListPreference != null)
@@ -273,7 +289,7 @@ namespace BarcodeScannerDemo
             _encodingEntryValues.Clear();
 
             // get the preference for text encoding list
-            _textEncodingListPreference = FindPreference("list_encodings") as ListPreference;
+            _textEncodingListPreference = FindPreference("list_encodings") as Android.Support.V7.Preferences.ListPreference;
             // if text encoding list preference is found
             if (_textEncodingListPreference != null)
             {
@@ -305,7 +321,7 @@ namespace BarcodeScannerDemo
             _sizeEntryValues.Clear();
 
             // get the preference for camera preview sizes list
-            _cameraPreviewSizesListPreference = FindPreference("list_camera_preview_sizes") as ListPreference;
+            _cameraPreviewSizesListPreference = FindPreference("list_camera_preview_sizes") as Android.Support.V7.Preferences.ListPreference;
             // if camera preview size list preference is found
             if (_cameraPreviewSizesListPreference != null)
             {

@@ -173,7 +173,7 @@ namespace BarcodeScannerDemo
                 // if Back key is pressed
                 case Keycode.Back:
                     // get barcode scanner fragment
-                    Fragment barcodeScannerFragment = FragmentManager.FindFragmentByTag(BARCODE_SCANNER_FRAGMENT_TAG);
+                    Android.Support.V4.App.Fragment barcodeScannerFragment = SupportFragmentManager.FindFragmentByTag(BARCODE_SCANNER_FRAGMENT_TAG);
                     // if barcode scanner fragment is found and barcode scanner fragment is visible
                     if (barcodeScannerFragment != null && barcodeScannerFragment.IsVisible)
                     {
@@ -273,9 +273,9 @@ namespace BarcodeScannerDemo
                     _isCameraPermissionGranted = true;
 
                     // create fragments
-                    _barcodeScannerFragment = new BarcodeScannerFragment(RecognizedBarcodes, true, true);
+                    _barcodeScannerFragment = new BarcodeScannerFragment(this, RecognizedBarcodes, true, true);
                     _historyFragment = new HistoryFragment();
-                    _settingsFragment = new SettingsFragment();
+                    _settingsFragment = new SettingsFragment(this);
 
                     // show barcode scanner fragment
                     SwitchToBarcodeScanner(null);
@@ -287,9 +287,9 @@ namespace BarcodeScannerDemo
                 _isCameraPermissionGranted = true;
 
                 // create fragments
-                _barcodeScannerFragment = new BarcodeScannerFragment(RecognizedBarcodes, true, true);
+                _barcodeScannerFragment = new BarcodeScannerFragment(this, RecognizedBarcodes, true, true);
                 _historyFragment = new HistoryFragment();
-                _settingsFragment = new SettingsFragment();
+                _settingsFragment = new SettingsFragment(this);
 
                 // show barcode scanner fragment
                 SwitchToBarcodeScanner(null);
@@ -323,9 +323,9 @@ namespace BarcodeScannerDemo
                 if (grantResults[0] == Permission.Granted)
                 {
                     // create fragments
-                    _barcodeScannerFragment = new BarcodeScannerFragment(RecognizedBarcodes, isFlashlightPermissionGranted, isVibratePermissionGranted);
+                    _barcodeScannerFragment = new BarcodeScannerFragment(this, RecognizedBarcodes, isFlashlightPermissionGranted, isVibratePermissionGranted);
                     _historyFragment = new HistoryFragment();
-                    _settingsFragment = new SettingsFragment();
+                    _settingsFragment = new SettingsFragment(this);
 
                     _isCameraPermissionGranted = true;
                     // show barcode scanner fragment
@@ -420,18 +420,18 @@ namespace BarcodeScannerDemo
         /// Switches from <paramref name="lastAttachedFragment"/> to the <see cref="BarcodeScannerFragment"/> instance.
         /// </summary>
         /// <param name="lastAttachedFragment">Last attached fragment.</param>
-        internal void SwitchToBarcodeScanner(Fragment lastAttachedFragment)
+        internal void SwitchToBarcodeScanner(Android.Support.V4.App.Fragment lastAttachedFragment)
         {
             // set default window settings
             SetDefaultWindowSettings();
 
             // create a new transaction
-            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            Android.Support.V4.App.FragmentTransaction transaction = SupportFragmentManager.BeginTransaction();
             // if last attached fragment is not empty
             if (lastAttachedFragment != null)
                 transaction.Detach(lastAttachedFragment);
             // if barcode scanner fragment does not exist
-            if (FragmentManager.FindFragmentByTag(BARCODE_SCANNER_FRAGMENT_TAG) == null)
+            if (SupportFragmentManager.FindFragmentByTag(BARCODE_SCANNER_FRAGMENT_TAG) == null)
                 // add fragment to the container
                 transaction.Add(Resource.Id.contentFrame, _barcodeScannerFragment, BARCODE_SCANNER_FRAGMENT_TAG);
             // if barcode scanner fragment exists
@@ -446,7 +446,7 @@ namespace BarcodeScannerDemo
         /// Switches from <paramref name="lastAttachedFragment"/> to the <see cref="BarcodeScannerFragment"/> instance.
         /// </summary>
         /// <param name="lastAttachedFragment">Last attached fragment.</param>
-        internal void SwitchToHistory(Fragment lastAttachedFragment)
+        internal void SwitchToHistory(Android.Support.V4.App.Fragment lastAttachedFragment)
         {
             // clear window flags
             Window.ClearFlags(WindowManagerFlags.KeepScreenOn);
@@ -457,12 +457,12 @@ namespace BarcodeScannerDemo
             SupportActionBar.SetTitle(Resource.String.history_title);
 
             // create a new transaction
-            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            Android.Support.V4.App.FragmentTransaction transaction = SupportFragmentManager.BeginTransaction();
             // if last attached fragment is not empty
             if (lastAttachedFragment != null)
                 transaction.Detach(lastAttachedFragment);
             // if history fragment does not exist
-            if (FragmentManager.FindFragmentByTag(HISTORY_FRAGMENT_TAG) == null)
+            if (SupportFragmentManager.FindFragmentByTag(HISTORY_FRAGMENT_TAG) == null)
                 // add fragment to the container
                 transaction.Add(Resource.Id.contentFrame, _historyFragment, HISTORY_FRAGMENT_TAG);
             // if history fragment exists
@@ -480,7 +480,7 @@ namespace BarcodeScannerDemo
         /// </summary>
         /// <param name="lastAttachedFragment">Last attached fragment.</param>
         /// <param name="cameraController">A camera controller.</param>
-        internal void SwitchToSettings(Fragment lastAttachedFragment, CameraController cameraController)
+        internal void SwitchToSettings(Android.Support.V4.App.Fragment lastAttachedFragment, CameraController cameraController)
         {
             // clear window flags
             Window.ClearFlags(WindowManagerFlags.KeepScreenOn);
@@ -491,12 +491,12 @@ namespace BarcodeScannerDemo
             SupportActionBar.SetTitle(Resource.String.settings_title);
 
             // create a new transaction
-            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            Android.Support.V4.App.FragmentTransaction transaction = SupportFragmentManager.BeginTransaction();
             // if last attached fragment is not empty
             if (lastAttachedFragment != null)
                 transaction.Detach(lastAttachedFragment);
             // if settings fragment does not exist
-            if (FragmentManager.FindFragmentByTag(SETTINGS_FRAGMENT_TAG) == null)
+            if (SupportFragmentManager.FindFragmentByTag(SETTINGS_FRAGMENT_TAG) == null)
             {
                 // add fragment to the container
                 transaction.Add(Resource.Id.contentFrame, _settingsFragment, SETTINGS_FRAGMENT_TAG);
@@ -547,7 +547,7 @@ namespace BarcodeScannerDemo
             {
                 extendedInfo.AppendLine(Utils.GetEncodedBarcodeValue(barcodeInfo, textEncodingName));
             }
-            catch (NotSupportedException ex)
+            catch (NotSupportedException)
             {
                 extendedInfo.AppendLine(Utils.GetEncodedBarcodeValue(barcodeInfo, "-1"));
             }

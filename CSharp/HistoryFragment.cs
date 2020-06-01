@@ -16,7 +16,7 @@ namespace BarcodeScannerDemo
     /// <summary>
     /// The history fragment, that contains history user interface.
     /// </summary>
-    public class HistoryFragment : ListFragment
+    public class HistoryFragment : Android.Support.V4.App.ListFragment
     {
 
         #region NestedClasses
@@ -124,7 +124,7 @@ namespace BarcodeScannerDemo
                     { 
                         textView2.Text = Utils.GetEncodedBarcodeValue(item, _textEncodingName);
                     }
-                    catch (NotSupportedException ex)
+                    catch (NotSupportedException)
                     {
                         textView2.Text = Utils.GetEncodedBarcodeValue(item, "-1");
                     }
@@ -149,9 +149,38 @@ namespace BarcodeScannerDemo
         #region Fields
 
         /// <summary>
+        /// Main activity.
+        /// </summary>
+        MainActivity _mainActivity;
+
+        /// <summary>
         /// The text encoding name.
         /// </summary>
         string _textEncodingName = "-1";
+
+        #endregion
+
+
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="HistoryFragment"/> class.
+        /// </summary>
+        public HistoryFragment()
+            : base()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="HistoryFragment"/> class.
+        /// </summary>
+        /// <param name="mainActivity">Main activity.</param>
+        internal HistoryFragment(MainActivity mainActivity)
+            : base()
+        {
+            _mainActivity = mainActivity;
+        }
 
         #endregion
 
@@ -166,8 +195,8 @@ namespace BarcodeScannerDemo
         {
             get
             {
-                if (Activity != null)
-                    return ((MainActivity)Activity).RecognizedBarcodes;
+                if (_mainActivity != null)
+                    return _mainActivity.RecognizedBarcodes;
                 return null;
             }
         }
@@ -203,7 +232,7 @@ namespace BarcodeScannerDemo
         /// </returns>
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            Context contextThemeWrapper = new ContextThemeWrapper(Activity, Resource.Style.HistoryDialogTheme);
+            Context contextThemeWrapper = new ContextThemeWrapper(_mainActivity, Resource.Style.HistoryDialogTheme);
             LayoutInflater localInflater = inflater.CloneInContext(contextThemeWrapper);
             return base.OnCreateView(localInflater, container, savedInstanceState);
         }
@@ -230,18 +259,18 @@ namespace BarcodeScannerDemo
             try
             {
                 // get preferences
-                ISharedPreferences preferences = PreferenceManager.GetDefaultSharedPreferences(Activity);
+                ISharedPreferences preferences = PreferenceManager.GetDefaultSharedPreferences(_mainActivity);
                 // get text encoding name from preferences
                 _textEncodingName = preferences.GetString("list_encodings", "-1");
             }
             catch (Exception ex)
             {
-                Toast.MakeText(Activity, string.Format("History error: {0}", ex.Message), ToastLength.Short).Show();
+                Toast.MakeText(_mainActivity, string.Format("History error: {0}", ex.Message), ToastLength.Short).Show();
             }
 
             // create list adapter
             ListAdapter = new BarcodeArrayAdapter(
-                this.Activity,
+                _mainActivity,
                 barcodeObjectList, 
                 Resources.GetString(Resource.String.title_history_empty_message),
                 Resources.GetString(Resource.String.summary_history_empty_message),
@@ -262,11 +291,11 @@ namespace BarcodeScannerDemo
             if (position < RecognizedBarcodes.Count)
             {
                 // get an extended information about barcode
-                string info = ((MainActivity)Activity).GetExtendedBarcodeInfoString(RecognizedBarcodes[position], _textEncodingName);
+                string info = _mainActivity.GetExtendedBarcodeInfoString(RecognizedBarcodes[position], _textEncodingName);
                 // get a barcode type
                 string barcodeType = Utils.GetBarcodeTypeString(RecognizedBarcodes[position]);
                 // show a dialog with an extended information about recognized barcode
-                ((MainActivity)Activity).ShowInfoDialog(barcodeType, info, true, RecognizedBarcodes[position].Value);
+                _mainActivity.ShowInfoDialog(barcodeType, info, true, RecognizedBarcodes[position].Value);
             }
         }
 
