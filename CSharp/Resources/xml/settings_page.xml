@@ -125,7 +125,12 @@
       android:title="@string/title_checkbox_2D_barcodes_DataMatrix"
       android:summary="@string/summary_checkbox_2D_barcodes_DataMatrix" />
 
-    <CheckBoxPreference
+	  <CheckBoxPreference
+		android:key="checkbox_2D_barcodes_DotCode"
+		android:title="@string/title_checkbox_2D_barcodes_DotCode"
+		android:summary="@string/summary_checkbox_2D_barcodes_DotCode" />
+
+	  <CheckBoxPreference
       android:key="checkbox_2D_barcodes_PDF417"
       android:title="@string/title_checkbox_2D_barcodes_PDF417"
       android:summary="@string/summary_checkbox_2D_barcodes_PDF417" />
@@ -197,7 +202,11 @@
         android:key="checkbox_GS1_barcodes_DataMatrix"
         android:title="@string/title_checkbox_GS1_barcodes_DataMatrix"/>
 
-      <CheckBoxPreference
+		<CheckBoxPreference
+		  android:key="checkbox_GS1_barcodes_DotCode"
+		  android:title="@string/title_checkbox_GS1_barcodes_DotCode"/>
+
+		<CheckBoxPreference
         android:key="checkbox_GS1_barcodes_QR"
         android:title="@string/title_checkbox_GS1_barcodes_QR"/>
 

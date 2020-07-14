@@ -118,7 +118,10 @@
   <string name="title_checkbox_2D_barcodes_DataMatrix">Data Matrix</string>
   <string name="summary_checkbox_2D_barcodes_DataMatrix">Data Matrix, GS1 Data Matrix, PPN, Royal Mail Mailmark CMDM, XFA Compressed DataMatrix</string>
 
-  <string name="title_checkbox_2D_barcodes_HanXin">Han Xin Code</string>
+	<string name="title_checkbox_2D_barcodes_DotCode">DotCode</string>
+	<string name="summary_checkbox_2D_barcodes_DotCode">DotCode, GS1 DotCode</string>
+
+	<string name="title_checkbox_2D_barcodes_HanXin">Han Xin Code</string>
 
   <string name="title_checkbox_2D_barcodes_PDF417">PDF417</string>
   <string name="summary_checkbox_2D_barcodes_PDF417">PDF417, Macro PDF417, XFA Compressed PDF417, AAMVA</string>
@@ -142,6 +145,8 @@
   <string name="title_checkbox_GS1_barcodes_Aztec">GS1 Aztec</string>
 
   <string name="title_checkbox_GS1_barcodes_DataMatrix">GS1 Data Matrix</string>
+	
+  <string name="title_checkbox_GS1_barcodes_DotCode">GS1 DotCode</string>
 
   <string name="title_checkbox_GS1_barcodes_QR">GS1 QR Code</string>
 

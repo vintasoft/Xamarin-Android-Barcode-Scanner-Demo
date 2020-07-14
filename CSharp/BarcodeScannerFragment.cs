@@ -1023,6 +1023,10 @@ namespace BarcodeScannerDemo
                 barcodeSubsets.Add(new MailmarkCmdmType9BarcodeSymbology());
                 barcodeSubsets.Add(new XFACompressedDataMatrixBarcodeSymbology());
             }
+            if (preferences.GetBoolean("checkbox_2D_barcodes_DotCode", false))
+            {
+                barcodeTypes |= BarcodeType.DotCode;
+            }
             if (preferences.GetBoolean("checkbox_2D_barcodes_HanXin", false))
                 barcodeTypes |= BarcodeType.HanXinCode;
             if (preferences.GetBoolean("checkbox_2D_barcodes_PDF417", false))
@@ -1051,6 +1055,8 @@ namespace BarcodeScannerDemo
                 barcodeSubsets.Add(new GS1AztecBarcodeSymbology());
             if (preferences.GetBoolean("checkbox_GS1_barcodes_DataMatrix", false))
                 barcodeSubsets.Add(new GS1DataMatrixBarcodeSymbology());
+            if (preferences.GetBoolean("checkbox_GS1_barcodes_DotCode", false))
+                barcodeSubsets.Add(new GS1DotCodeBarcodeSymbology());
             if (preferences.GetBoolean("checkbox_GS1_barcodes_QR", false))
                 barcodeSubsets.Add(new GS1QRBarcodeSymbology());
             if (preferences.GetBoolean("checkbox_GS1_barcodes_GS1_128", false))
@@ -1240,7 +1246,7 @@ namespace BarcodeScannerDemo
 
             barcodeScanner.ScannerSettings.BarcodeCharacteristics = BarcodeCharacteristics.NormalSizeBarcodes;
 
-            barcodeScanner.ScannerSettings.MaximalThreadsCount = 1;
+            barcodeScanner.ScannerSettings.MaximumThreadCount = 1;
 
             // set verify barcode delegate
             barcodeScanner.ScannerSettings.VerifyBarcodeMethod = new VerifyBarcodeDelegate(VerifyBarcode);
