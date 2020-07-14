@@ -250,6 +250,9 @@ namespace BarcodeScannerDemo
                 case BarcodeType.DataMatrix:
                     return "DataMatrix";
 
+                case BarcodeType.DotCode:
+                    return "DotCode";
+
                 case BarcodeType.QR:
                     return "QR";
 
