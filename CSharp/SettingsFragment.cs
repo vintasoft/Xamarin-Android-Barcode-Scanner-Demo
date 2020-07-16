@@ -1,7 +1,6 @@
 ﻿using Android.Content;
 using Android.Hardware;
 using Android.OS;
-using Android.Preferences;
 using Android.Views;
 using Android.Widget;
 using System.Collections.Generic;

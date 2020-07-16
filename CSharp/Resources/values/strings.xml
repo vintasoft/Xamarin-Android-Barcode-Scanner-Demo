@@ -9,8 +9,8 @@
   <string name="vintasoft_barcodes_url">https://www.vintasoft.com/vsbarcode-dotnet-index.html#BarcodeScannerDemo</string>
   <!--Titles and buttons-->
 
-  
-  
+
+
   <!-- Messages -->
   <string name="about_message">This demo shows how to recognize barcodes using VintaSoft Barcode .NET SDK.\nhttps://www.vintasoft.com/vsbarcode-dotnet-index.html#BarcodeScannerDemo\n\nVersion {0}</string>
   <string name="language_change_message">To change the language you need to restart the application.</string>
@@ -52,9 +52,9 @@
   <string name="summary_history_empty_message">There are no saved barcodes</string>
 
   <string name="unsupported_encoding_message">Encoding {0} is not supported</string>
-  
-  
-  
+
+
+
   <!--Base Settings-->
   <string name="title_list_languages">Language</string>
   <string name="dialog_title_list_languages">Choose language</string>
@@ -107,10 +107,12 @@
   <string name="title_set_default_settings">Reset settings</string>
   <!--Base Settings-->
 
-  <string name="barcode_category_preference">Barcode types</string>
+
+
+  <string name="barcode_category_preference">Recognize barcodes</string>
   
   <!--2D Barcodes Settings-->
-  <string name="barcodes_2D_preferences">2D Barcodes</string>
+  <string name="barcodes_2D_preferences">Recognize 2D barcodes</string>
 
   <string name="title_checkbox_2D_barcodes_Aztec">Aztec</string>
   <string name="summary_checkbox_2D_barcodes_Aztec">Aztec, Aztec Compact, Aztec Rune, XFA Compressed Aztec</string>
@@ -118,29 +120,29 @@
   <string name="title_checkbox_2D_barcodes_DataMatrix">Data Matrix</string>
   <string name="summary_checkbox_2D_barcodes_DataMatrix">Data Matrix, GS1 Data Matrix, PPN, Royal Mail Mailmark CMDM, XFA Compressed DataMatrix</string>
 
-	<string name="title_checkbox_2D_barcodes_DotCode">DotCode</string>
-	<string name="summary_checkbox_2D_barcodes_DotCode">DotCode, GS1 DotCode</string>
+  <string name="title_checkbox_2D_barcodes_DotCode">DotCode</string>
+  <string name="summary_checkbox_2D_barcodes_DotCode">DotCode, GS1 DotCode</string>
 
-	<string name="title_checkbox_2D_barcodes_HanXin">Han Xin Code</string>
+  <string name="title_checkbox_2D_barcodes_HanXin">Han Xin Code</string>
+
+  <string name="title_checkbox_2D_barcodes_MaxiCode">MaxiCode</string>
+
+  <string name="title_checkbox_2D_barcodes_MicroPDF417">Micro PDF417</string>
+
+  <string name="title_checkbox_2D_barcodes_MicroQR">Micro QR Code</string>
 
   <string name="title_checkbox_2D_barcodes_PDF417">PDF417</string>
   <string name="summary_checkbox_2D_barcodes_PDF417">PDF417, Macro PDF417, XFA Compressed PDF417, AAMVA</string>
 
   <string name="title_checkbox_2D_barcodes_PDF417Compact">PDF417 Compact</string>
-  
-  <string name="title_checkbox_2D_barcodes_MicroPDF417">Micro PDF417</string>
-  
+
   <string name="title_checkbox_2D_barcodes_QR">QR Code</string>
   <string name="summary_checkbox_2D_barcodes_QR">QR Code, XFA Compressed QR Code</string>
-
-  <string name="title_checkbox_2D_barcodes_MicroQR">Micro QR Code</string>
-
-  <string name="title_checkbox_2D_barcodes_MaxiCode">MaxiCode</string>
   <!--2D Barcodes Settings-->
 
   
   <!--GS1 Barcode Settings-->
-  <string name="barcodes_stacked_GS1_preferences">GS1 Barcodes</string>
+  <string name="barcodes_stacked_GS1_preferences">Recognize GS1 barcodes</string>
 
   <string name="title_checkbox_GS1_barcodes_Aztec">GS1 Aztec</string>
 
@@ -166,7 +168,7 @@
   
   
   <!--1D Barcodes Settings-->
-  <string name="barcodes_1D_preferences">1D Barcodes</string>
+  <string name="barcodes_1D_preferences">Recognize 1D linear barcodes</string>
 
   <string name="title_checkbox_1D_barcodes_Codabar">Codabar</string>
   
@@ -255,10 +257,9 @@
   <string name="summary_checkbox_1D_barcodes_VIN">VIN (Vehicle Identification Number)</string>
   <!--1D Barcodes Settings-->
 
-  
-  
+
   <!--1D Postal 2/4-state Barcodes Settings-->
-  <string name="barcodes_postal_1D_preferences">1D Postal 2/4-state Barcodes</string>
+  <string name="barcodes_postal_1D_preferences">Recognize 1D postal barcodes</string>
 
   <string name="title_checkbox_postal_1D_AustralianPost">Australian Post</string>
   <string name="summary_checkbox_postal_1D_AustralianPost">Australian Post (Australia Post Customer Barcode)</string>

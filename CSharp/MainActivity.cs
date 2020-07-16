@@ -1,5 +1,4 @@
-﻿using Android;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Content.Res;
@@ -396,8 +395,6 @@ namespace BarcodeScannerDemo
             {
                 // get the intent action
                 string action = Intent.Action;
-                // get the intent data
-                string dataString = Intent.DataString;
 
                 // if action is scan action or view action
                 if (action == Intents.Scan.ACTION || action == Intent.ActionView)

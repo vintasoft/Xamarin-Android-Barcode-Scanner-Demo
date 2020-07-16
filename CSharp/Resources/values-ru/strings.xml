@@ -51,13 +51,13 @@
   <string name="summary_history_empty_message">Нет сохраненных штрих-кодов</string>
 
   <string name="unsupported_encoding_message">Кодировка {0} не поддерживается</string>
-  
+
 
 
   <!--Base Settings-->
   <string name="title_list_languages">Язык</string>
   <string name="dialog_title_list_languages">Выберите язык</string>
-  
+
   <string name="camera_preferences">Настройки камеры</string>
 
   <string name="title_checkbox_autofocus">Автофокус</string>
@@ -107,27 +107,24 @@
   <string name="title_set_default_settings">Сбросить все настройки</string>
   <!--Base Settings-->
 
-  
-  
-  <string name="barcode_category_preference">Типы штрих-кодов</string>
+
+
+  <string name="barcode_category_preference">Распознавать штрих-коды</string>
 
   <!--2D Barcodes Settings-->
-  <string name="barcodes_2D_preferences">2D Штрих-коды</string>
+  <string name="barcodes_2D_preferences">Распознавать 2D штрих-коды</string>
   <!--2D Barcodes Settings-->
 
-  
   <!--GS1 Barcode Settings-->
-  <string name="barcodes_stacked_GS1_preferences">GS1 Штрих-коды</string>
+  <string name="barcodes_stacked_GS1_preferences">Распознавать GS1 штрих-коды</string>
   <!--GS1 Barcode Settings-->
-
 
   <!--1D Barcodes Settings-->
-  <string name="barcodes_1D_preferences">1D Штрих-коды</string>
+  <string name="barcodes_1D_preferences">Распознавать 1D линейные штрих-коды</string>
   <!--1D Barcodes Settings-->
-
 
   <!--1D Postal 2/4-state Barcodes Settings-->
-  <string name="barcodes_postal_1D_preferences">1D Почтовые 2/4-ранговые Штрих-коды</string>
+  <string name="barcodes_postal_1D_preferences">Распознавать 1D почтовые штрих-коды</string>
   <!--1D Postal 2/4-state Barcodes Settings-->
 
 </resources>
