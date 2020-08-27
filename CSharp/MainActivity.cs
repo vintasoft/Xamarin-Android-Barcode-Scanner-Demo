@@ -273,7 +273,7 @@ namespace BarcodeScannerDemo
 
                     // create fragments
                     _barcodeScannerFragment = new BarcodeScannerFragment(this, RecognizedBarcodes, true, true);
-                    _historyFragment = new HistoryFragment();
+                    _historyFragment = new HistoryFragment(this);
                     _settingsFragment = new SettingsFragment(this);
 
                     // show barcode scanner fragment
@@ -287,7 +287,7 @@ namespace BarcodeScannerDemo
 
                 // create fragments
                 _barcodeScannerFragment = new BarcodeScannerFragment(this, RecognizedBarcodes, true, true);
-                _historyFragment = new HistoryFragment();
+                _historyFragment = new HistoryFragment(this);
                 _settingsFragment = new SettingsFragment(this);
 
                 // show barcode scanner fragment
@@ -323,7 +323,7 @@ namespace BarcodeScannerDemo
                 {
                     // create fragments
                     _barcodeScannerFragment = new BarcodeScannerFragment(this, RecognizedBarcodes, isFlashlightPermissionGranted, isVibratePermissionGranted);
-                    _historyFragment = new HistoryFragment();
+                    _historyFragment = new HistoryFragment(this);
                     _settingsFragment = new SettingsFragment(this);
 
                     _isCameraPermissionGranted = true;
