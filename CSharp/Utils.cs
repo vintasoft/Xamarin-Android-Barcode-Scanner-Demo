@@ -111,6 +111,69 @@ namespace BarcodeScannerDemo
                 return sb.ToString();
             }
 
+            if (info is SwissQRCodeBarcodeInfo)
+            {
+                SwissQRCodeValueItem value = ((SwissQRCodeBarcodeInfo)info).DecodedValue;
+                StringBuilder sb = new StringBuilder();
+
+                sb.AppendLine(string.Format("Version: {0}", value.Version));
+                sb.AppendLine(string.Format("CodingType: {0}", value.CodingType));
+
+                if (!string.IsNullOrEmpty(value.IBAN))
+                    sb.AppendLine(string.Format("IBAN: {0}", value.IBAN));
+
+                if (!string.IsNullOrEmpty(value.CreditorAddressType))
+                    sb.AppendLine(string.Format("Creditor address type: {0}", value.CreditorAddressType));
+                if (!string.IsNullOrEmpty(value.CreditorName))
+                    sb.AppendLine(string.Format("Creditor name: {0}", value.CreditorName));
+                if (!string.IsNullOrEmpty(value.CreditorStreetOrAddressLine1))
+                    sb.AppendLine(string.Format("Creditor street or address line 1: {0}", value.CreditorStreetOrAddressLine1));
+                if (!string.IsNullOrEmpty(value.CreditorBuildingNumberOrAddressLine2))
+                    sb.AppendLine(string.Format("Creditor building number or address line 2: {0}", value.CreditorBuildingNumberOrAddressLine2));
+                if (!string.IsNullOrEmpty(value.CreditorTown))
+                    sb.AppendLine(string.Format("Creditor town: {0}", value.CreditorTown));
+                if (!string.IsNullOrEmpty(value.CreditorContry))
+                    sb.AppendLine(string.Format("Creditor country: {0}", value.CreditorContry));
+
+
+                if (!string.IsNullOrEmpty(value.Amount))
+                    sb.AppendLine(string.Format("Amount: {0}", value.Amount));
+                if (!string.IsNullOrEmpty(value.AmountCurrency))
+                    sb.AppendLine(string.Format("Amount currency: {0}", value.AmountCurrency));
+
+                if (!string.IsNullOrEmpty(value.UltimateDebtorAddressType))
+                    sb.AppendLine(string.Format("Ultimate debtor address type: {0}", value.UltimateDebtorAddressType));
+                if (!string.IsNullOrEmpty(value.UltimateDebtorName))
+                    sb.AppendLine(string.Format("Ultimate debtor name: {0}", value.UltimateDebtorName));
+                if (!string.IsNullOrEmpty(value.UltimateDebtorStreetOrAddressLine1))
+                    sb.AppendLine(string.Format("Ultimate debtor street or address line 1: {0}", value.UltimateDebtorStreetOrAddressLine1));
+                if (!string.IsNullOrEmpty(value.UltimateDebtorBuildingNumberOrAddressLine2))
+                    sb.AppendLine(string.Format("Ultimate debtor building number or address line 2: {0}", value.UltimateDebtorBuildingNumberOrAddressLine2));
+                if (!string.IsNullOrEmpty(value.UltimateDebtorTown))
+                    sb.AppendLine(string.Format("Ultimate debtor town: {0}", value.UltimateDebtorTown));
+                if (!string.IsNullOrEmpty(value.UltimateDebtorContry))
+                    sb.AppendLine(string.Format("Ultimate debtor country: {0}", value.UltimateDebtorContry));
+
+                if (!string.IsNullOrEmpty(value.PaymentReferenceType))
+                    sb.AppendLine(string.Format("Payment reference type: {0}", value.PaymentReferenceType));
+                if (!string.IsNullOrEmpty(value.PaymentReference))
+                    sb.AppendLine(string.Format("Payment reference: {0}", value.PaymentReference));
+
+                if (!string.IsNullOrEmpty(value.UnstructuredMessage))
+                    sb.AppendLine(string.Format("Unstructured message: {0}", value.UnstructuredMessage));
+
+                if (!string.IsNullOrEmpty(value.BillInformation))
+                    sb.AppendLine(string.Format("Bill information: {0}", value.BillInformation));
+
+                if (!string.IsNullOrEmpty(value.AlternativeSchemeParameters1))
+                    sb.AppendLine(string.Format("Alternative scheme parameters 1: {0}", value.AlternativeSchemeParameters1));
+                if (!string.IsNullOrEmpty(value.AlternativeSchemeParameters1))
+                    sb.AppendLine(string.Format("Alternative scheme parameters 2: {0}", value.AlternativeSchemeParameters2));
+
+
+                return sb.ToString();
+            }
+
             if (textEncodingName == "-1")
                 return info.Value;           
 

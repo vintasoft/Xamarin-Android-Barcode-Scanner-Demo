@@ -1043,6 +1043,7 @@ namespace BarcodeScannerDemo
             {
                 barcodeTypes |= BarcodeType.QR;
                 barcodeSubsets.Add(new XFACompressedQRCodeBarcodeSymbology());
+                barcodeSubsets.Add(new SwissQRCodeBarcodeSymbology());
             }
             if (preferences.GetBoolean("checkbox_2D_barcodes_MicroQR", false))
                 barcodeTypes |= BarcodeType.MicroQR;

@@ -137,7 +137,7 @@
   <string name="title_checkbox_2D_barcodes_PDF417Compact">PDF417 Compact</string>
 
   <string name="title_checkbox_2D_barcodes_QR">QR Code</string>
-  <string name="summary_checkbox_2D_barcodes_QR">QR Code, XFA Compressed QR Code</string>
+  <string name="summary_checkbox_2D_barcodes_QR">QR Code, Swiss QR Code, XFA Compressed QR Code</string>
   <!--2D Barcodes Settings-->
 
   
