@@ -700,9 +700,12 @@ namespace BarcodeScannerDemo
             }
             catch (Exception ex)
             {
-                Toast.MakeText(_mainActivity, string.Format("Scan frame: {0}", ex.Message), ToastLength.Long).Show();
-                // stop camera preview
-                camera.StopPreview();
+                _mainActivity.RunOnUiThread(() =>
+                {
+                    Toast.MakeText(_mainActivity, string.Format("Scan frame: {0}", ex.Message), ToastLength.Long).Show();
+                    // stop camera preview
+                    camera.StopPreview();
+                });
             }
             finally
             {
@@ -1062,16 +1065,58 @@ namespace BarcodeScannerDemo
                 barcodeSubsets.Add(new GS1QRBarcodeSymbology());
             if (preferences.GetBoolean("checkbox_GS1_barcodes_GS1_128", false))
                 barcodeSubsets.Add(new GS1_128BarcodeSymbology());
+            if (preferences.GetBoolean("checkbox_GS1_barcodes_GS1_128_CC", false))
+            {
+                barcodeSubsets.Add(new GS1_128CCABarcodeSymbology());
+                barcodeSubsets.Add(new GS1_128CCBBarcodeSymbology());
+                barcodeSubsets.Add(new GS1_128CCCBarcodeSymbology());
+            }
             if (preferences.GetBoolean("checkbox_GS1_barcodes_GS1DataBar", false))
                 barcodeSubsets.Add(new GS1DataBarBarcodeSymbology());
+            if (preferences.GetBoolean("checkbox_GS1_barcodes_GS1DataBar_CC", false))
+            {
+                barcodeSubsets.Add(new GS1DataBarCCABarcodeSymbology());
+                barcodeSubsets.Add(new GS1DataBarCCBBarcodeSymbology());
+            }
             if (preferences.GetBoolean("checkbox_GS1_barcodes_GS1DataBarLimited", false))
                 barcodeSubsets.Add(new GS1DataBarLimitedBarcodeSymbology());
+            if (preferences.GetBoolean("checkbox_GS1_barcodes_GS1DataBarLimited_CC", false))
+            {
+                barcodeSubsets.Add(new GS1DataBarLimitedCCABarcodeSymbology());
+                barcodeSubsets.Add(new GS1DataBarLimitedCCBBarcodeSymbology());
+            }
             if (preferences.GetBoolean("checkbox_GS1_barcodes_GS1DataBarExpanded", false))
                 barcodeSubsets.Add(new GS1DataBarExpandedBarcodeSymbology());
+            if (preferences.GetBoolean("checkbox_GS1_barcodes_GS1DataBarExpanded_CC", false))
+            {
+                barcodeSubsets.Add(new GS1DataBarExpandedCCABarcodeSymbology());
+                barcodeSubsets.Add(new GS1DataBarExpandedCCBBarcodeSymbology());
+            }
             if (preferences.GetBoolean("checkbox_GS1_barcodes_GS1DataBarStacked", false))
                 barcodeSubsets.Add(new GS1DataBarStackedBarcodeSymbology());
+            if (preferences.GetBoolean("checkbox_GS1_barcodes_GS1DataBarStacked_CC", false))
+            {
+                barcodeSubsets.Add(new GS1DataBarStackedCCABarcodeSymbology());
+                barcodeSubsets.Add(new GS1DataBarStackedCCBBarcodeSymbology());
+            }
             if (preferences.GetBoolean("checkbox_GS1_barcodes_GS1DataBarExpandedStacked", false))
                 barcodeSubsets.Add(new GS1DataBarExpandedStackedBarcodeSymbology());
+            if (preferences.GetBoolean("checkbox_GS1_barcodes_GS1DataBarExpandedStacked_CC", false))
+            {
+                barcodeSubsets.Add(new GS1DataBarExpandedStackedCCABarcodeSymbology());
+                barcodeSubsets.Add(new GS1DataBarExpandedStackedCCBBarcodeSymbology());
+            }
+            if (preferences.GetBoolean("checkbox_GS1_barcodes_EANUPC_CC", false))
+            {
+                barcodeSubsets.Add(new EAN13CCABarcodeSymbology());
+                barcodeSubsets.Add(new EAN13CCBBarcodeSymbology());
+                barcodeSubsets.Add(new EAN8CCABarcodeSymbology());
+                barcodeSubsets.Add(new EAN8CCBBarcodeSymbology());
+                barcodeSubsets.Add(new UPCACCABarcodeSymbology());
+                barcodeSubsets.Add(new UPCACCBBarcodeSymbology());
+                barcodeSubsets.Add(new UPCECCABarcodeSymbology());
+                barcodeSubsets.Add(new UPCECCBBarcodeSymbology());
+            }
 
 
             // 1D barcodes settings

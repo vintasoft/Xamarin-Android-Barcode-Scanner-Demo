@@ -132,8 +132,8 @@ namespace BarcodeScannerDemo
                     sb.AppendLine(string.Format("Creditor building number or address line 2: {0}", value.CreditorBuildingNumberOrAddressLine2));
                 if (!string.IsNullOrEmpty(value.CreditorTown))
                     sb.AppendLine(string.Format("Creditor town: {0}", value.CreditorTown));
-                if (!string.IsNullOrEmpty(value.CreditorContry))
-                    sb.AppendLine(string.Format("Creditor country: {0}", value.CreditorContry));
+                if (!string.IsNullOrEmpty(value.CreditorCountry))
+                    sb.AppendLine(string.Format("Creditor country: {0}", value.CreditorCountry));
 
 
                 if (!string.IsNullOrEmpty(value.Amount))
@@ -151,8 +151,8 @@ namespace BarcodeScannerDemo
                     sb.AppendLine(string.Format("Ultimate debtor building number or address line 2: {0}", value.UltimateDebtorBuildingNumberOrAddressLine2));
                 if (!string.IsNullOrEmpty(value.UltimateDebtorTown))
                     sb.AppendLine(string.Format("Ultimate debtor town: {0}", value.UltimateDebtorTown));
-                if (!string.IsNullOrEmpty(value.UltimateDebtorContry))
-                    sb.AppendLine(string.Format("Ultimate debtor country: {0}", value.UltimateDebtorContry));
+                if (!string.IsNullOrEmpty(value.UltimateDebtorCountry))
+                    sb.AppendLine(string.Format("Ultimate debtor country: {0}", value.UltimateDebtorCountry));
 
                 if (!string.IsNullOrEmpty(value.PaymentReferenceType))
                     sb.AppendLine(string.Format("Payment reference type: {0}", value.PaymentReferenceType));

@@ -256,6 +256,9 @@ namespace BarcodeScannerDemo
             SupportActionBar.SetHomeButtonEnabled(false);
             SupportActionBar.SetDisplayHomeAsUpEnabled(false);
 
+            // check licence
+            CheckLicense();
+
             // if Android version is equal or higher than 6.0 (API 23)
             if (Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
@@ -292,6 +295,22 @@ namespace BarcodeScannerDemo
 
                 // show barcode scanner fragment
                 SwitchToBarcodeScanner(null);
+            }
+        }
+
+        /// <summary>
+        /// Checks active license.
+        /// </summary>
+        private void CheckLicense()
+        {
+            try
+            {
+                BarcodeReader reader = new BarcodeReader();
+                reader.ReadBarcodes(new GrayscaleImageSource(1, 1, new byte[1]));
+            }
+            catch (Exception ex)
+            {
+                ShowInfoDialog(ex.GetType().ToString(), ex.Message);
             }
         }
 
@@ -364,7 +383,7 @@ namespace BarcodeScannerDemo
         /// </summary>
         protected override void OnStart()
         {
-            base.OnStart();
+            base.OnStart();           
 
             OpenCamera();
         }

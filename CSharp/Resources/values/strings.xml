@@ -127,12 +127,12 @@
 
   <string name="title_checkbox_2D_barcodes_MaxiCode">MaxiCode</string>
 
-  <string name="title_checkbox_2D_barcodes_MicroPDF417">Micro PDF417</string>
+  <string name="title_checkbox_2D_barcodes_MicroPDF417">Micro PDF417, Micro PDF417 CC-A, Micro PDF417 CC-B</string>
 
   <string name="title_checkbox_2D_barcodes_MicroQR">Micro QR Code</string>
 
   <string name="title_checkbox_2D_barcodes_PDF417">PDF417</string>
-  <string name="summary_checkbox_2D_barcodes_PDF417">PDF417, Macro PDF417, XFA Compressed PDF417, AAMVA</string>
+  <string name="summary_checkbox_2D_barcodes_PDF417">PDF417, Macro PDF417, XFA Compressed PDF417, AAMVA, PDF417 CC-C</string>
 
   <string name="title_checkbox_2D_barcodes_PDF417Compact">PDF417 Compact</string>
 
@@ -154,16 +154,24 @@
 
   <string name="title_checkbox_GS1_barcodes_GS1_128">GS1-128</string>
   <string name="summary_checkbox_GS1_barcodes_GS1_128">GS1-128 (UCC/EAN-128, EAN-128)</string>
-
+	<string name="title_checkbox_GS1_barcodes_GS1_128_CC">GS1-128 CC-A, GS1-128 CC-B, GS1-128 CC-C</string>
+	
   <string name="title_checkbox_GS1_barcodes_GS1DataBar">GS1 Data Bar</string>
+	<string name="title_checkbox_GS1_barcodes_GS1DataBar_CC">GS1 Data Bar CC-A, GS1 Data Bar CC-B</string>
 
-  <string name="title_checkbox_GS1_barcodes_GS1DataBarLimited">GS1 Data Bar Limited</string>
+	<string name="title_checkbox_GS1_barcodes_GS1DataBarLimited">GS1 Data Bar Limited</string>
+	<string name="title_checkbox_GS1_barcodes_GS1DataBarLimited_CC">GS1 Data Bar Limited CC-A, GS1 Data Bar Limited CC-B</string>
 
   <string name="title_checkbox_GS1_barcodes_GS1DataBarExpanded">GS1 Data Bar Expanded</string>
+	<string name="title_checkbox_GS1_barcodes_GS1DataBarExpanded_CC">GS1 Data Bar Expanded CC-A, GS1 Data Bar Expanded CC-B</string>
 
   <string name="title_checkbox_GS1_barcodes_GS1DataBarStacked">GS1 Data Bar Stacked</string>
+  <string name="title_checkbox_GS1_barcodes_GS1DataBarStacked_CC">GS1 Data Bar Stacked CC-A, GS1 Data Bar Stacked CC-B</string>
 
   <string name="title_checkbox_GS1_barcodes_GS1DataBarExpandedStacked">GS1 Data Bar Expanded Stacked</string>
+	<string name="title_checkbox_GS1_barcodes_GS1DataBarExpandedStacked_CC">GS1 Data Bar Expanded Stacked CC-A, GS1 Data Bar Expanded Stacked CC-B</string>
+
+	<string name="title_checkbox_GS1_barcodes_EANUPC_CC">EAN-13/8 CC-A, EAN-13/8 CC-B, UPC-A/E CC-A, UPC-A/E CC-B</string>
   <!--GS1 Barcode Settings-->
   
   

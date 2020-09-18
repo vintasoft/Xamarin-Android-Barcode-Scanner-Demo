@@ -177,28 +177,56 @@
         android:key="checkbox_GS1_barcodes_GS1_128"
         android:title="@string/title_checkbox_GS1_barcodes_GS1_128"
         android:summary="@string/summary_checkbox_GS1_barcodes_GS1_128"/>
+	
+		<CheckBoxPreference
+				android:key="checkbox_GS1_barcodes_GS1_128_CC"
+				android:title="@string/title_checkbox_GS1_barcodes_GS1_128_CC"/>
 
-      <CheckBoxPreference
+		<CheckBoxPreference
         android:key="checkbox_GS1_barcodes_GS1DataBar"
         android:title="@string/title_checkbox_GS1_barcodes_GS1DataBar"/>
 
-      <CheckBoxPreference
+		<CheckBoxPreference
+        android:key="checkbox_GS1_barcodes_GS1DataBar_CC"
+        android:title="@string/title_checkbox_GS1_barcodes_GS1DataBar_CC"/>
+
+		<CheckBoxPreference
         android:key="checkbox_GS1_barcodes_GS1DataBarLimited"
         android:title="@string/title_checkbox_GS1_barcodes_GS1DataBarLimited"/>
+
+		<CheckBoxPreference
+        android:key="checkbox_GS1_barcodes_GS1DataBarLimited_CC"
+        android:title="@string/title_checkbox_GS1_barcodes_GS1DataBarLimited_CC"/>
 
       <CheckBoxPreference
         android:key="checkbox_GS1_barcodes_GS1DataBarExpanded"
         android:title="@string/title_checkbox_GS1_barcodes_GS1DataBarExpanded"/>
 
-      <CheckBoxPreference
+		<CheckBoxPreference
+		  android:key="checkbox_GS1_barcodes_GS1DataBarExpanded_CC"
+		  android:title="@string/title_checkbox_GS1_barcodes_GS1DataBarExpanded_CC"/>
+
+		<CheckBoxPreference
         android:key="checkbox_GS1_barcodes_GS1DataBarStacked"
         android:title="@string/title_checkbox_GS1_barcodes_GS1DataBarStacked"/>
 
-      <CheckBoxPreference
+		<CheckBoxPreference
+        android:key="checkbox_GS1_barcodes_GS1DataBarStacked_CC"
+        android:title="@string/title_checkbox_GS1_barcodes_GS1DataBarStacked_CC"/>
+
+		<CheckBoxPreference
         android:key="checkbox_GS1_barcodes_GS1DataBarExpandedStacked"
         android:title="@string/title_checkbox_GS1_barcodes_GS1DataBarExpandedStacked"/>
 
-      <CheckBoxPreference
+		<CheckBoxPreference
+        android:key="checkbox_GS1_barcodes_GS1DataBarExpandedStacked_CC"
+        android:title="@string/title_checkbox_GS1_barcodes_GS1DataBarExpandedStacked_CC"/>
+
+		<CheckBoxPreference
+        android:key="checkbox_GS1_barcodes_EANUPC_CC"
+        android:title="@string/title_checkbox_GS1_barcodes_EANUPC_CC"/>
+
+		<CheckBoxPreference
         android:key="checkbox_GS1_barcodes_Aztec"
         android:title="@string/title_checkbox_GS1_barcodes_Aztec"/>
 
