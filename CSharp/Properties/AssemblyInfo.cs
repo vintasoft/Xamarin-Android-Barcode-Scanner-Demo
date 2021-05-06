@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("VintaSoft Ltd.")]
 [assembly: AssemblyProduct("Vintasoft.BarcodeScannerDemo.Xamarin.Android")]
-[assembly: AssemblyCopyright("Copyright\x00a9 2020 VintaSoft, Ltd. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright\x00a9 2021 VintaSoft, Ltd. All rights reserved.")]
 [assembly: AssemblyTrademark("VintaSoft\x00ae is registered trademark of VintaSoft Ltd.")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
